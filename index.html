@@ -8,6 +8,9 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
   <!-- Google Fonts: Plus Jakarta Sans (UI Modern), Merriweather (Gaya Atlas Klasik), JetBrains Mono (Koordinat GIS) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -111,6 +114,35 @@
       animation: pulseVolcano 2.2s ease-in-out infinite;
     }
 
+    /* Penanda Angka Provinsi (1-38) pada Peta SVG */
+    .province-marker {
+      cursor: pointer;
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease;
+    }
+    .province-marker:hover {
+      transform: scale(1.35);
+      filter: drop-shadow(0 0 6px rgba(250, 204, 21, 0.95));
+    }
+    .province-marker-active {
+      transform: scale(1.42);
+      filter: drop-shadow(0 0 8px rgba(250, 204, 21, 1));
+    }
+    @keyframes markerPulseRing {
+      0%, 100% {
+        r: 11.5;
+        opacity: 0.95;
+      }
+      50% {
+        r: 15.5;
+        opacity: 0.35;
+      }
+    }
+    .marker-pulse-ring {
+      animation: markerPulseRing 1.5s ease-in-out infinite;
+    }
+
     /* Kustomisasi range slider waktu */
     input[type="range"].time-slider {
       -webkit-appearance: none;
@@ -151,13 +183,10 @@
         
         <!-- Identitas & Judul Media Pembelajaran -->
         <div class="flex items-start sm:items-center gap-4">
-          <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-tr from-white-500 to-white-300 text-ocean-950 flex items-center justify-center shadow-md border border-amber-1000">
+          <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-ocean-950 flex items-center justify-center shadow-md border border-amber-200">
             <!-- Ikon Bola Dunia & Kompas Kartografi -->
-            <svg class="w-full h-full" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 34 34">
-              <circle cx="12" cy="12" r="10" />
-              <h1 class="text-1xl sm:text-2xl font-extrabold tracking-tight text-white">
-             <img src="https://iili.io/oH7Loyg.png" alt="oH7Loyg.png" border="10"></a>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <img class="w-50 h-25" src="https://iili.io/oH7Loyg.png" alt="oH7Loyg.png" border="0"></a>
             </svg>
           </div>
           <div>
@@ -166,50 +195,40 @@
               <span>•</span>
               <span>MODUL INTERAKTIF</span>
               <span>•</span>
-               <span>SDN 2 Kupang Teba</span>
+              <span>SDN 2 Kupang Teba</span>
             </div>
-            <h1 class="text-1xl sm:text-2xl font-extrabold tracking-tight text-white">
+            <h1 class="text-xl sm:text-2xl lg:text-`3xl font-extrabold tracking-tight leading-tight">
               Jelajah Nusantara: Letak &amp; Kondisi Geografis Indonesia
+              <h1 class="text-s sm: text-s lg:text-`xl font-extrabold tracking-tight leading-tight">
+              <p>By : Idil Adha Muslimin Hilal, S.Pd,Gr</p>
             </h1>
-            <h1 class="text-0,5xl sm:text-1xl font-extrabold tracking-tight text-yellow">
-              By : Idil Adha Muslimin Hilal, S.Pd, Gr
-            </h1>
-            <p class="text-ocean-100 text-sm sm:text-base mt-0.5">
-              Eksplorasi posisi strategis kepulauan Indonesia melalui perbandingan peta konvensional dan peta digital.
+            <p class="text-xs sm:text-sm text-ocean-100 mt-1 max-w-2xl">
+              Tujuan Pembelajaran: Menjelaskan letak dan kondisi geografis Indonesia (38 Provinsi) menggunakan peta konvensional maupun digital.
             </p>
           </div>
         </div>
-
-        <!-- Kotak Tujuan Pembelajaran -->
-        <div class="lg:max-w-md bg-white/10 backdrop-blur-sm border border-amber-300/40 rounded-2xl p-4 shadow-inner">
-          <div class="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider mb-1">
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z" />
-            </svg>
-            <span>Tujuan Pembelajaran</span>
-          </div>
-          <p class="text-xs sm:text-sm text-white/95 leading-relaxed">
-            Menjelaskan <strong>letak dan kondisi geografis Indonesia</strong> (astronomis, geografis, dan geologis) menggunakan <strong>peta konvensional maupun digital</strong> secara tepat dan kritis.
-          </p>
-        </div>
-
       </div>
 
-      <!-- Navigasi 3 Tab Utama -->
-      <nav aria-label="Navigasi Utama" class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-        <button id="tab-btn-1" onclick="switchMainTab(1)" class="tab-btn flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all shadow-sm bg-amber-400 text-ocean-950 ring-2 ring-amber-200">
-          <span class="w-6 h-6 rounded-full bg-ocean-950 text-amber-300 text-xs flex items-center justify-center font-extrabold">1</span>
-          <span>Peta Interaktif (Konvensional vs Digital)</span>
+      <!-- Navigasi 4 Tab Utama -->
+      <nav aria-label="Navigasi Utama" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+        <button id="tab-btn-1" onclick="switchMainTab(1)" class="tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-sm bg-amber-400 text-ocean-950 ring-2 ring-amber-200">
+          <span class="w-6 h-6 rounded-full bg-ocean-950 text-amber-300 text-xs flex items-center justify-center font-extrabold flex-shrink-0">1</span>
+          <span>Peta Ganda (Konvensional vs Digital)</span>
         </button>
 
-        <button id="tab-btn-2" onclick="switchMainTab(2)" class="tab-btn flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60">
-          <span class="w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold">2</span>
-          <span>Materi &amp; Simulasi Geografis</span>
+        <button id="tab-btn-2" onclick="switchMainTab(2)" class="tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60">
+          <span class="w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold flex-shrink-0">2</span>
+          <span>Materi &amp; 38 Provinsi per Pulau</span>
         </button>
 
-        <button id="tab-btn-3" onclick="switchMainTab(3)" class="tab-btn flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60">
-          <span class="w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold">3</span>
-          <span>Kuis Evaluasi</span>
+        <button id="tab-btn-3" onclick="switchMainTab(3)" class="tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60">
+          <span class="w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold flex-shrink-0">3</span>
+          <span>Simulasi Zona Waktu &amp; Muson</span>
+        </button>
+
+        <button id="tab-btn-4" onclick="switchMainTab(4)" class="tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60">
+          <span class="w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold flex-shrink-0">4</span>
+          <span>Kuis Evaluasi (10 Soal)</span>
         </button>
       </nav>
     </div>
@@ -219,45 +238,65 @@
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
     <!-- ===================================================================== -->
-    <!-- TAB 1: PETA INTERAKTIF (KONVENSIONAL VS DIGITAL)                      -->
+    <!-- TAB 1: PETA INTERAKTIF GANDA (KONVENSIONAL VS DIGITAL)                -->
     <!-- ===================================================================== -->
     <section id="tab-content-1" class="space-y-6">
       
-      <!-- Bilah Kontrol Sakelar Mode Peta -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h2 class="text-lg sm:text-xl font-extrabold text-ocean-950 flex items-center gap-2">
-            <span class="w-2.5 h-6 rounded-full bg-archipelago-600 inline-block"></span>
-            Eksplorasi Kartografi Nusantara
-          </h2>
-          <p class="text-sm text-slate-600 mt-0.5">
-            Ubah mode tampilan peta di bawah untuk membandingkan karakteristik <strong>Atlas Cetak</strong> dengan <strong>WebGIS Digital</strong>, lalu klik pulau mana saja untuk melihat profil geografisnya.
-          </p>
+      <!-- Bilah Kontrol Sakelar Mode Peta & Pencarian Cepat Provinsi/Pulau -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-ocean-950 flex items-center gap-2">
+              <span class="w-2.5 h-6 rounded-full bg-archipelago-600 inline-block"></span>
+              Eksplorasi Kartografi Nusantara &amp; 38 Provinsi
+            </h2>
+            <p class="text-sm text-slate-600 mt-0.5">
+              Bandingkan <strong>Peta Konvensional (Atlas Cetak)</strong> dengan <strong>Peta Digital (WebGIS)</strong>, atau klik wilayah pulau untuk melihat daftar lengkap provinsi &amp; ibu kotanya.
+            </p>
+          </div>
+
+          <!-- Sakelar (Toggle Switch) Mode Peta -->
+          <div class="flex flex-wrap items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200 self-start lg:self-auto gap-1">
+            <button id="mode-btn-konvensional" onclick="setMapMode('konvensional')" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-parchment-200 text-parchment-900 shadow-sm border border-parchment-300">
+              <i class="fa-solid fa-map text-parchment-800"></i>
+              <span>Peta Konvensional (Atlas Cetak)</span>
+            </button>
+
+            <button id="mode-btn-digital" onclick="setMapMode('digital')" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-600 hover:text-ocean-900">
+              <i class="fa-solid fa-layer-group text-ocean-600"></i>
+              <span>Peta Digital (WebGIS Interaktif)</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Sakelar (Toggle Switch) Mode Peta -->
-        <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200 self-start md:self-auto">
-          <button id="mode-btn-konvensional" onclick="setMapMode('konvensional')" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-parchment-200 text-parchment-900 shadow-sm border border-parchment-300">
-            <svg class="w-4 h-4 text-parchment-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-            <span>Peta Konvensional (Atlas Cetak)</span>
-          </button>
-
-          <button id="mode-btn-digital" onclick="setMapMode('digital')" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-600 hover:text-ocean-900">
-            <svg class="w-4 h-4 text-ocean-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-            </svg>
-            <span>Peta Digital (WebGIS / SIG)</span>
-          </button>
+        <!-- Bilah Pencarian Cepat Provinsi / Ibu Kota / Pulau pada Peta -->
+        <div class="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-3 border-t border-slate-100">
+          <div class="relative flex-grow">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input
+              type="text"
+              id="map-search-input"
+              oninput="handleMapQuickSearch(this.value)"
+              placeholder="Cari nomor (1–38), nama provinsi, atau ibu kota (contoh: 10, Lampung, Jayapura, 37)..."
+              class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-xs sm:text-sm text-slate-800 focus:bg-white focus:border-ocean-600 focus:outline-none"
+            />
+            <!-- Dropdown Hasil Pencarian Peta -->
+            <div id="map-search-results" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-30 divide-y divide-slate-100">
+              <!-- Diisi dinamis oleh JS -->
+            </div>
+          </div>
+          <span class="text-[11px] text-slate-500 px-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-info text-ocean-600"></i>
+            <span>Klik angka 1–38 di peta atau ketik nomor/nama provinsi</span>
+          </span>
         </div>
       </div>
 
-      <!-- Grid Utama: Area Peta + Panel Kanan -->
+      <!-- Grid Utama: Area Peta + Panel Inspektur Wilayah -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Kolom Kiri (8/12): Kanvas Peta Interaktif -->
-        <div class="lg:col-span-8 space-y-4">
+        <!-- Kolom Kiri (7/12): Kanvas Peta Interaktif -->
+        <div class="lg:col-span-7 space-y-4">
           <div id="map-frame-container" class="relative rounded-2xl overflow-hidden shadow-lg border-4 border-parchment-300 bg-parchment-100 map-transition">
             
             <!-- Header Judul Peta di dalam Bingkai -->
@@ -267,23 +306,23 @@
                   MODE ATLAS CETAK
                 </span>
                 <span id="map-title-text" class="font-serif font-bold text-xs sm:text-sm">
-                  PETA KEPULAUAN REPUBLIK INDONESIA (PROYEKSI SILINDER EKUATOR)
+                  PETA KEPULAUAN REPUBLIK INDONESIA (PROVINSI 1–38)
                 </span>
               </div>
               <span id="map-hint-text" class="text-xs italic opacity-85">
-                Klik wilayah pulau untuk detail geografis
+                Klik penanda angka 1–38 atau pulau untuk melihat detail wilayah
               </span>
             </div>
 
-            <!-- Toolbar Khusus Mode Digital (Zoom & Reset) -->
-            <div id="digital-zoom-toolbar" class="hidden absolute top-14 right-3 z-20 flex flex-col gap-1.5 bg-slate-900/90 backdrop-blur-md p-1.5 rounded-xl border border-sky-500/40 shadow-xl">
-              <button onclick="zoomMap(0.35)" title="Perbesar (Zoom In)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600 text-white font-bold text-lg flex items-center justify-center transition">
+            <!-- Toolbar Kontrol Zoom & Pan (Tersedia pada Kedua Mode agar Angka 1-38 Mudah Diperbesar) -->
+            <div id="map-zoom-toolbar" class="absolute top-14 right-3 z-20 flex flex-col gap-1.5 bg-slate-900/90 backdrop-blur-md p-1.5 rounded-xl border border-sky-500/40 shadow-xl">
+              <button onclick="zoomMap(0.4)" title="Perbesar Peta (Zoom In)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600 text-white font-bold text-lg flex items-center justify-center transition">
                 +
               </button>
-              <button onclick="zoomMap(-0.35)" title="Perkecil (Zoom Out)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600 text-white font-bold text-lg flex items-center justify-center transition">
+              <button onclick="zoomMap(-0.4)" title="Perkecil Peta (Zoom Out)" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-sky-600 text-white font-bold text-lg flex items-center justify-center transition">
                 −
               </button>
-              <button onclick="resetMapView()" title="Reset Posisi Peta" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-sky-300 font-bold text-xs flex items-center justify-center transition">
+              <button onclick="resetMapView()" title="Reset Tampilan Peta" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-sky-300 font-bold text-xs flex items-center justify-center transition">
                 ⟲
               </button>
             </div>
@@ -553,23 +592,32 @@
                       <!-- Krakatau -->
                       <polygon class="volcano-marker" points="248,325 242,336 254,336" />
                       <!-- Merapi & Semeru -->
-                      <polygon class="volcano-marker" points="342,350 336,361 348,361" />
-                      <polygon class="volcano-marker" points="392,358 386,369 398,369" />
-                      <!-- Agung & Rinjani -->
-                      <polygon class="volcano-marker" points="438,364 432,375 444,375" />
-                      <polygon class="volcano-marker" points="458,366 452,377 464,377" />
-                      <!-- Tambora -->
-                      <polygon class="volcano-marker" points="492,364 486,375 498,375" />
-                      <!-- Lokon / Soputan (Sulawesi Utara) & Gamalama (Maluku) -->
-                      <polygon class="volcano-marker" points="622,168 616,179 628,179" />
-                      <polygon class="volcano-marker" points="668,178 662,189 674,189" />
+                      <polygon class="volcano-marker" points="348,354 342,365 354,365" />
+                      <polygon class="volcano-marker" points="396,360 390,371 402,371" />
+                      <!-- Rinjani & Tambora -->
+                      <polygon class="volcano-marker" points="458,364 452,375 464,375" />
+                      <polygon class="volcano-marker" points="492,363 486,374 498,374" />
+                      <!-- Lokon / Soputan (Sulawesi Utara) & Gamalama (Maluku Utara) -->
+                      <polygon class="volcano-marker" points="622,165 616,176 628,176" />
+                      <polygon class="volcano-marker" points="664,174 658,185 670,185" />
                     </g>
+                  </g>
+
+                  <!-- 8. LAYER PENANDA ANGKA 38 PROVINSI (1-38) -->
+                  <g id="province-markers-layer">
+                    <!-- Garis Penunjuk Tipis untuk Provinsi Padat (DKI Jakarta #12 & DI Yogyakarta #15) -->
+                    <g stroke="#ffffff" stroke-width="1.2" opacity="0.9">
+                      <line x1="276" y1="333" x2="278" y2="316" />
+                      <line x1="346" y1="362" x2="348" y2="376" />
+                    </g>
+                    <!-- Penanda Angka 1 s.d. 38 Dirender oleh JavaScript -->
+                    <g id="svg-province-number-badges"></g>
                   </g>
 
                 </g>
                 <!-- Akhir dari Grup Transformasi Zoom/Pan -->
 
-                <!-- 8. ELEMEN KARTORAFI STATIS KHUSUS PETA KONVENSIONAL (ATLAS CETAK) -->
+                <!-- 9. ELEMEN KARTORAFI STATIS KHUSUS PETA KONVENSIONAL (ATLAS CETAK) -->
                 <g id="conventional-static-elements">
                   <!-- Bingkai Dalam Klasik (Neatline) -->
                   <rect x="4" y="4" width="992" height="492" fill="none" stroke="#4a3c2c" stroke-width="2.5" />
@@ -588,20 +636,21 @@
                     <text x="-31" y="3" font-size="8" font-weight="700" fill="#4a3c2c" text-anchor="middle">B</text>
                   </g>
 
-                  <!-- Legenda & Skala Batang Statis (Kanan Bawah / Tengah Bawah) -->
-                  <g transform="translate(275, 425)">
-                    <rect x="0" y="0" width="295" height="64" rx="4" fill="#fcfaf5" fill-opacity="0.95" stroke="#4a3c2c" stroke-width="1.3" />
-                    <text x="10" y="14" font-family="Merriweather, serif" font-size="9" font-weight="700" fill="#2f251b">LEGENDA &amp; SKALA ATLAS CETAK (1 : 15.000.000)</text>
+                  <!-- Legenda & Skala Batang Statis (Tengah Bawah) -->
+                  <g transform="translate(230, 425)">
+                    <rect x="0" y="0" width="365" height="64" rx="4" fill="#fcfaf5" fill-opacity="0.95" stroke="#4a3c2c" stroke-width="1.3" />
+                    <text x="10" y="14" font-family="Merriweather, serif" font-size="8.6" font-weight="700" fill="#2f251b">LEGENDA &amp; SKALA ATLAS CETAK (1 : 15.000.000)</text>
                     
-                    <!-- Simbol Konvensional -->
-                    <rect x="10" y="22" width="14" height="9" fill="#689f38" stroke="#2f4f3e" stroke-width="0.8" />
-                    <text x="28" y="30" font-size="8.5" fill="#4a3c2c">Wilayah RI</text>
+                    <!-- Simbol Penanda Angka 1-38 -->
+                    <circle cx="17" cy="26" r="6.5" fill="#047857" stroke="#ffffff" stroke-width="1" />
+                    <text x="17" y="28.8" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle">1</text>
+                    <text x="28" y="29.5" font-size="8" font-weight="700" fill="#4a3c2c">Penanda Nomor Provinsi (1–38)</text>
 
-                    <rect x="85" y="22" width="14" height="9" fill="#dfd3be" stroke="#9c896c" stroke-width="0.8" />
-                    <text x="103" y="30" font-size="8.5" fill="#4a3c2c">Negara Tetangga</text>
+                    <rect x="155" y="21.5" width="12" height="9" fill="#dfd3be" stroke="#9c896c" stroke-width="0.8" />
+                    <text x="171" y="29.5" font-size="8" fill="#4a3c2c">Negara Tetangga</text>
 
-                    <line x1="185" y1="26" x2="205" y2="26" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 2" />
-                    <text x="210" y="30" font-size="8.5" fill="#4a3c2c">Khatulistiwa (0°)</text>
+                    <line x1="248" y1="26" x2="266" y2="26" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 2" />
+                    <text x="270" y="29.5" font-size="8" fill="#4a3c2c">Khatulistiwa (0°)</text>
 
                     <!-- Skala Batang Statis -->
                     <g transform="translate(10, 42)">
@@ -611,12 +660,26 @@
                       <text x="0" y="16" font-size="8" fill="#2f251b">0</text>
                       <text x="34" y="16" font-size="8" fill="#2f251b">300</text>
                       <text x="74" y="16" font-size="8" fill="#2f251b">600</text>
-                      <text x="114" y="16" font-size="8" fill="#2f251b">900 km (Skala Statis)</text>
+                      <text x="114" y="16" font-size="8" fill="#2f251b">900 km (Skala Statis • Gunakan +/- untuk memperbesar)</text>
                     </g>
                   </g>
                 </g>
 
               </svg>
+            </div>
+          </div>
+
+          <!-- Legenda Interaktif Nomor Provinsi (1–38) di Bawah Peta -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-ocean-900 text-amber-300 font-mono text-xs font-extrabold flex items-center justify-center">1–38</span>
+                <h3 class="font-extrabold text-xs sm:text-sm text-ocean-950">Legenda Nomor Provinsi (1–38) — Klik Nomor untuk Sorot di Peta</h3>
+              </div>
+              <span class="text-[11px] text-slate-500">Warna lencana menunjukkan 7 kelompok pulau</span>
+            </div>
+            <div id="map-number-legend-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 max-h-52 overflow-y-auto pr-1">
+              <!-- Diisi dinamis oleh JS (1 s.d. 38) -->
             </div>
           </div>
 
@@ -628,90 +691,62 @@
                 <h3 class="font-bold text-sm text-slate-800">Pengatur Layer Informasi Spasial (Overlay SIG)</h3>
               </div>
               <span id="layer-lock-badge" class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-200">
-                Terkunci pada Mode Konvensional — Aktifkan Mode Peta Digital untuk membuka layer
+                Terkunci pada Mode Konvensional — Aktifkan Peta Digital
               </span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <label id="lbl-layer-timezone" class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <label id="lbl-layer-islands" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+                <input type="checkbox" id="chk-layer-islands" onchange="toggleGisLayer('islands')" disabled checked class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500" />
+                <div>
+                  <span class="block text-xs font-bold text-slate-800">Layer Wilayah Pulau</span>
+                  <span class="block text-[11px] text-slate-500">7 Kepulauan Nusantara</span>
+                </div>
+              </label>
+
+              <label id="lbl-layer-provinces" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+                <input type="checkbox" id="chk-layer-provinces" onchange="toggleGisLayer('provinces')" disabled checked class="mt-0.5 w-4 h-4 rounded text-amber-500 focus:ring-amber-400" />
+                <div>
+                  <span class="block text-xs font-bold text-slate-800">Penanda Nomor (1–38)</span>
+                  <span class="block text-[11px] text-slate-500">Lencana 38 provinsi</span>
+                </div>
+              </label>
+
+              <label id="lbl-layer-graticule" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+                <input type="checkbox" id="chk-layer-graticule" onchange="toggleGisLayer('graticule')" disabled checked class="mt-0.5 w-4 h-4 rounded text-sky-600 focus:ring-sky-500" />
+                <div>
+                  <span class="block text-xs font-bold text-slate-800">Garis Astronomis &amp; 0°</span>
+                  <span class="block text-[11px] text-slate-500">Lintang, Bujur &amp; Ekuator</span>
+                </div>
+              </label>
+
+              <label id="lbl-layer-timezone" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
                 <input type="checkbox" id="chk-layer-timezone" onchange="toggleGisLayer('timezone')" disabled class="mt-0.5 w-4 h-4 rounded text-sky-600 focus:ring-sky-500" />
                 <div>
                   <span class="block text-xs font-bold text-slate-800">Layer Zona Waktu</span>
-                  <span class="block text-[11px] text-slate-500">Pembagian WIB, WITA, WIT</span>
+                  <span class="block text-[11px] text-slate-500">WIB, WITA, WIT</span>
                 </div>
               </label>
 
-              <label id="lbl-layer-monsoon" class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+              <label id="lbl-layer-monsoon" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
                 <input type="checkbox" id="chk-layer-monsoon" onchange="toggleGisLayer('monsoon')" disabled class="mt-0.5 w-4 h-4 rounded text-sky-600 focus:ring-sky-500" />
                 <div>
                   <span class="block text-xs font-bold text-slate-800">Layer Angin Muson</span>
-                  <span class="block text-[11px] text-slate-500">Arah Muson Barat &amp; Timur</span>
+                  <span class="block text-[11px] text-slate-500">Muson Barat &amp; Timur</span>
                 </div>
               </label>
 
-              <label id="lbl-layer-tectonic" class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
+              <label id="lbl-layer-tectonic" class="flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition">
                 <input type="checkbox" id="chk-layer-tectonic" onchange="toggleGisLayer('tectonic')" disabled class="mt-0.5 w-4 h-4 rounded text-rose-600 focus:ring-rose-500" />
                 <div>
-                  <span class="block text-xs font-bold text-slate-800">Layer Lempeng &amp; Gunung Api</span>
-                  <span class="block text-[11px] text-slate-500">3 Lempeng &amp; Cincin Api</span>
+                  <span class="block text-xs font-bold text-slate-800">Lempeng &amp; Ring of Fire</span>
+                  <span class="block text-[11px] text-slate-500">3 Lempeng &amp; Gunung Api</span>
                 </div>
               </label>
             </div>
           </div>
-        </div>
 
-        <!-- Kolom Kanan (4/12): Panel Detail Pulau Terpilih + Panel Perbandingan Langsung Mode Peta -->
-        <div class="lg:col-span-4 space-y-5">
-          
-          <!-- Kartu 1: Detail Kondisi Geografis Pulau yang Diklik -->
-          <div id="island-detail-card" class="bg-white rounded-2xl shadow-sm border-2 border-archipelago-500/40 overflow-hidden">
-            <div class="bg-gradient-to-r from-archipelago-800 to-ocean-800 px-4 py-3 text-white flex items-center justify-between">
-              <div>
-                <span class="text-[11px] uppercase tracking-wider font-bold text-amber-300">Profil Geografis Wilayah</span>
-                <h3 id="island-name" class="text-lg font-extrabold">Pulau Sumatra</h3>
-              </div>
-              <span id="island-tz-badge" class="px-2.5 py-1 rounded-lg bg-white/15 text-xs font-mono font-bold text-amber-200 border border-white/20">
-                WIB (UTC+7)
-              </span>
-            </div>
-
-            <div class="p-4 space-y-3 text-sm">
-              <!-- Pilih cepat wilayah melalui dropdown/tombol kecil untuk aksesibilitas -->
-              <div>
-                <label for="quick-island-select" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
-                  Pilih Wilayah di Peta atau Daftar:
-                </label>
-                <select id="quick-island-select" onchange="selectIsland(this.value)" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-800 focus:border-ocean-600 focus:outline-none">
-                  <option value="sumatra">1. Pulau Sumatra</option>
-                  <option value="jawa">2. Pulau Jawa</option>
-                  <option value="kalimantan">3. Pulau Kalimantan</option>
-                  <option value="sulawesi">4. Pulau Sulawesi</option>
-                  <option value="nusatenggara">5. Bali &amp; Nusa Tenggara</option>
-                  <option value="maluku">6. Kepulauan Maluku</option>
-                  <option value="papua">7. Pulau Papua</option>
-                </select>
-              </div>
-
-              <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
-                <span class="text-xs font-bold text-ocean-900 block mb-1">Batas Wilayah Geografis:</span>
-                <ul id="island-borders" class="text-xs text-slate-700 space-y-1">
-                  <!-- Diisi dinamis oleh JS -->
-                </ul>
-              </div>
-
-              <div>
-                <span class="text-xs font-bold text-archipelago-800 block mb-0.5">Bentang Alam Utama:</span>
-                <p id="island-landscape" class="text-xs text-slate-600 leading-relaxed"></p>
-              </div>
-
-              <div>
-                <span class="text-xs font-bold text-amber-700 block mb-0.5">Karakteristik Iklim &amp; Sumber Daya Alam:</span>
-                <p id="island-resources" class="text-xs text-slate-600 leading-relaxed"></p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Kartu 2: Panel Perbandingan Langsung Karakteristik Mode Peta Aktif -->
+          <!-- Kartu Perbandingan Karakteristik Mode Peta Aktif -->
           <div id="mode-comparison-card" class="rounded-2xl shadow-sm border-2 border-parchment-300 bg-parchment-50 p-4 sm:p-5 map-transition">
             <div class="flex items-center justify-between gap-2 mb-3">
               <span id="comp-card-tag" class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-parchment-800 text-parchment-50">
@@ -722,7 +757,7 @@
               </button>
             </div>
 
-            <div class="space-y-3 text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
               <div>
                 <h4 class="font-bold text-emerald-800 flex items-center gap-1.5">
                   <span>✓</span> Kelebihan Utama:
@@ -736,16 +771,116 @@
                 </h4>
                 <p id="comp-cons" class="text-slate-700 mt-0.5 leading-relaxed"></p>
               </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-2.5 mt-2.5 border-t border-slate-200/80 text-xs">
+              <div>
+                <span class="font-bold text-slate-800">Contoh Media: </span>
+                <span id="comp-examples" class="text-slate-600"></span>
+              </div>
+              <div>
+                <span class="font-bold text-slate-800">Cara Membaca: </span>
+                <span id="comp-howtoread" class="text-slate-600"></span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-              <div class="grid grid-cols-1 gap-2 pt-2 border-t border-slate-200/80">
-                <div>
-                  <span class="font-bold text-slate-800">Contoh Media: </span>
-                  <span id="comp-examples" class="text-slate-600"></span>
+        <!-- Kolom Kanan (5/12): Panel Inspektur Wilayah & Daftar Provinsi Lengkap -->
+        <div class="lg:col-span-5 space-y-5">
+          
+          <!-- Kartu Inspektur Wilayah Pulau & Daftar Provinsinya -->
+          <div id="island-detail-card" class="bg-white rounded-2xl shadow-sm border-2 border-archipelago-500/40 overflow-hidden">
+            <div class="bg-gradient-to-r from-archipelago-800 to-ocean-800 px-4 py-3.5 text-white flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[11px] uppercase tracking-wider font-bold text-amber-300">Panel Inspektur Wilayah</span>
+                <h3 id="island-name" class="text-lg font-extrabold">Pulau Sumatra</h3>
+              </div>
+              <div class="text-right">
+                <span id="island-tz-badge" class="px-2.5 py-1 rounded-lg bg-white/15 text-xs font-mono font-bold text-amber-200 border border-white/20 block">
+                  WIB (UTC+7)
+                </span>
+                <span id="island-prov-count-badge" class="text-[11px] font-bold text-emerald-200 mt-0.5 block">
+                  10 Provinsi
+                </span>
+              </div>
+            </div>
+
+            <div class="p-4 space-y-3.5 text-sm">
+              <!-- Pilih cepat wilayah pulau -->
+              <div>
+                <label for="quick-island-select" class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  Pilih Pulau / Kepulauan (Total 38 Provinsi):
+                </label>
+                <select id="quick-island-select" onchange="selectIsland(this.value)" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-800 focus:border-ocean-600 focus:outline-none">
+                  <option value="sumatra">1. Pulau Sumatera (No. 1–10 • 10 Provinsi)</option>
+                  <option value="jawa">2. Pulau Jawa (No. 11–16 • 6 Provinsi)</option>
+                  <option value="nusatenggara">3. Bali &amp; Nusa Tenggara (No. 17–19 • 3 Provinsi)</option>
+                  <option value="kalimantan">4. Pulau Kalimantan (No. 20–24 • 5 Provinsi)</option>
+                  <option value="sulawesi">5. Pulau Sulawesi (No. 25–30 • 6 Provinsi)</option>
+                  <option value="maluku">6. Kepulauan Maluku (No. 31–32 • 2 Provinsi)</option>
+                  <option value="papua">7. Pulau Papua (No. 33–38 • 6 Provinsi)</option>
+                </select>
+              </div>
+
+              <!-- Kotak Profil Provinsi Terpilih (Sinkron dengan Angka 1–38 di Peta) -->
+              <div id="province-spotlight-box" class="p-3 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/70 border-2 border-amber-400 shadow-sm text-xs space-y-1.5">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span id="spotlight-prov-num" class="px-2 py-0.5 rounded-lg text-white font-mono font-extrabold text-xs shadow-sm" style="background-color: #047857;">
+                      #1
+                    </span>
+                    <span id="spotlight-prov-name" class="font-extrabold text-sm text-ocean-950">Aceh</span>
+                  </div>
+                  <span id="spotlight-prov-tz" class="px-2 py-0.5 rounded bg-ocean-900 text-amber-300 font-mono font-bold text-[10px]">
+                    WIB (UTC+7)
+                  </span>
+                </div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-bold text-archipelago-900">
+                  <span id="spotlight-prov-capital">Ibu Kota: Banda Aceh</span>
+                  <span>•</span>
+                  <span id="spotlight-prov-island">Pulau Sumatera</span>
+                </div>
+                <p id="spotlight-prov-desc" class="text-[11px] text-slate-700 leading-relaxed pt-0.5">
+                  Provinsi paling barat Indonesia (Sabang, Pulau Weh) yang berbatasan langsung dengan Selat Malaka dan Samudra Hindia.
+                </p>
+              </div>
+
+              <!-- Daftar Lengkap Nama Provinsi & Ibu Kota di Pulau Terpilih (Badge Nomor [1]–[38] Interaktif) -->
+              <div class="rounded-xl bg-ocean-50/70 border border-ocean-200 p-3">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-extrabold text-ocean-950 flex items-center gap-1.5">
+                    <i class="fa-solid fa-hashtag text-rose-600"></i>
+                    <span>Daftar Provinsi di Pulau Ini (Klik untuk Sorot Angka di Peta):</span>
+                  </span>
+                </div>
+                <div id="island-provinces-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  <!-- Badge/Kartu Provinsi diisi oleh JS -->
+                </div>
+              </div>
+
+              <!-- Letak Astronomis & Batas Geografis Pulau -->
+              <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80 space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ocean-900">Letak Astronomis Pulau:</span>
+                  <span id="island-astro" class="font-mono font-bold text-[11px] text-ocean-700 bg-ocean-100/70 px-2 py-0.5 rounded">6° LU – 6° LS, 95° BT – 106° BT</span>
                 </div>
                 <div>
-                  <span class="font-bold text-slate-800">Cara Membaca Informasi: </span>
-                  <span id="comp-howtoread" class="text-slate-600"></span>
+                  <span class="text-xs font-bold text-ocean-900 block mb-1">Batas Wilayah Geografis:</span>
+                  <ul id="island-borders" class="text-xs text-slate-700 space-y-1">
+                    <!-- Diisi dinamis oleh JS -->
+                  </ul>
                 </div>
+              </div>
+
+              <!-- Kondisi Geologis & Bentang Alam Utama -->
+              <div>
+                <span class="text-xs font-bold text-archipelago-800 block mb-0.5">Kondisi Geologis &amp; Bentang Alam Utama:</span>
+                <p id="island-landscape" class="text-xs text-slate-600 leading-relaxed"></p>
+              </div>
+
+              <div>
+                <span class="text-xs font-bold text-amber-700 block mb-0.5">Karakteristik Iklim &amp; Sumber Daya Alam:</span>
+                <p id="island-resources" class="text-xs text-slate-600 leading-relaxed"></p>
               </div>
             </div>
           </div>
@@ -755,294 +890,91 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- TAB 2: MATERI & SIMULASI GEOGRAFIS                                    -->
+    <!-- TAB 2: MATERI & DAFTAR LENGKAP 38 PROVINSI PER PULAU                  -->
     <!-- ===================================================================== -->
     <section id="tab-content-2" class="hidden space-y-8">
       
-      <!-- BAGIAN A: LETAK ASTRONOMIS & SIMULASI ZONA WAKTU -->
+      <!-- BAGIAN A: KONSEP LETAK & KONDISI GEOGRAFIS INDONESIA -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="bg-gradient-to-r from-ocean-900 to-ocean-800 px-6 py-4 text-white">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian A • Koordinat Lintang &amp; Bujur</span>
-          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Letak Astronomis &amp; Simulasi Pembagian Zona Waktu</h2>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian A • Konsep Dasar Geografi Indonesia</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Letak Astronomis, Geografis, dan Geologis Indonesia</h2>
         </div>
 
-        <div class="p-6 space-y-6">
-          <!-- Ringkasan Konsep Letak Astronomis -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-ocean-50 border border-ocean-200">
-              <div class="flex items-center gap-2 font-extrabold text-ocean-950 text-base mb-1">
-                <span class="px-2 py-0.5 rounded bg-ocean-700 text-white font-mono text-xs">6° LU – 11° LS</span>
-                <span>Pengaruh Garis Lintang (Iklim)</span>
+        <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <!-- Kartu 1: Letak Astronomis -->
+          <div class="rounded-2xl bg-ocean-50/80 border-2 border-ocean-200 p-5 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="w-10 h-10 rounded-xl bg-ocean-700 text-white flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-compass"></i>
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-ocean-700 text-white font-mono text-xs font-bold">
+                  6°LU–11°LS &amp; 95°BT–141°BT
+                </span>
               </div>
-              <p class="text-sm text-slate-700 leading-relaxed">
-                Wilayah Indonesia berada di sekitar garis khatulistiwa (0°), sehingga beriklim <strong>tropis</strong>. Dampaknya meliputi curah hujan tinggi, kelembapan udara tinggi, penyinaran matahari sepanjang tahun (±12 jam/hari), serta hutan hujan tropis yang lebat.
+              <h3 class="text-lg font-extrabold text-ocean-950">1. Letak Astronomis</h3>
+              <p class="text-xs sm:text-sm text-slate-700 mt-1.5 leading-relaxed">
+                Posisi Indonesia berdasarkan garis lintang dan garis bujur pada peta:
               </p>
-            </div>
-
-            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
-              <div class="flex items-center gap-2 font-extrabold text-amber-950 text-base mb-1">
-                <span class="px-2 py-0.5 rounded bg-amber-600 text-white font-mono text-xs">95° BT – 141° BT</span>
-                <span>Pengaruh Garis Bujur (Waktu)</span>
-              </div>
-              <p class="text-sm text-slate-700 leading-relaxed">
-                Bentang bujur Indonesia sepanjang <strong>46°</strong> (141° − 95°). Karena setiap 15° bujur berselisih waktu 1 jam (360° ÷ 24 jam), Indonesia terbagi menjadi <strong>3 zona waktu</strong>: <strong>WIB</strong> (UTC+7), <strong>WITA</strong> (UTC+8), dan <strong>WIT</strong> (UTC+9).
-              </p>
-            </div>
-          </div>
-
-          <!-- Simulator Interaktif Zona Waktu -->
-          <div class="rounded-2xl bg-slate-900 text-white p-5 sm:p-6 border border-slate-700 shadow-inner">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
-              <div>
-                <h3 class="text-lg font-extrabold text-amber-300 flex items-center gap-2">
-                  <span>⏱️ Simulasi Interaktif Zona Waktu Indonesia</span>
-                </h3>
-                <p class="text-xs sm:text-sm text-slate-300">
-                  Geser pengatur waktu WIB di bawah ini untuk mengamati perbedaan waktu di wilayah WITA (+1 jam) dan WIT (+2 jam).
-                </p>
-              </div>
-
-              <!-- Tombol Preset Waktu Cepat -->
-              <div class="flex flex-wrap gap-2">
-                <button onclick="setWibMinutes(420)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">07:00 WIB (Pagi)</button>
-                <button onclick="setWibMinutes(720)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">12:00 WIB (Siang)</button>
-                <button onclick="setWibMinutes(1020)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">17:00 WIB (Sore)</button>
-                <button onclick="setWibMinutes(1320)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">22:00 WIB (Malam)</button>
-              </div>
-            </div>
-
-            <!-- Slider Waktu WIB -->
-            <div class="mb-6 bg-slate-800/80 p-4 rounded-xl border border-slate-700">
-              <div class="flex justify-between text-xs font-mono text-slate-400 mb-2">
-                <span>00:00 WIB</span>
-                <span class="text-amber-300 font-bold">Geser untuk mengubah waktu acuan WIB</span>
-                <span>23:45 WIB</span>
-              </div>
-              <input id="wib-time-slider" type="range" min="0" max="1425" step="15" value="480" oninput="updateTimeZoneSimulator(this.value)" class="w-full time-slider" />
-            </div>
-
-            <!-- 3 Kartu Jam Digital Sinkron -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <!-- Kartu WIB -->
-              <div class="rounded-xl bg-gradient-to-b from-sky-950 to-slate-900 border-2 border-sky-500/60 p-4">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="px-2.5 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-xs font-bold">WIB • UTC+7</span>
-                  <span id="wib-period-badge" class="text-xs font-semibold text-amber-300">☀️ Pagi Hari</span>
-                </div>
-                <div id="clock-wib" class="text-3xl sm:text-4xl font-mono font-extrabold text-white tracking-wider my-1">
-                  08:00
-                </div>
-                <p class="text-[11px] text-sky-300 font-mono mb-2">Meridian Pangkal: 105° BT</p>
-                <p class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2">
-                  <strong>Wilayah:</strong> Seluruh Pulau Sumatra, Pulau Jawa, Provinsi Kalimantan Barat, dan Kalimantan Tengah.
-                </p>
-              </div>
-
-              <!-- Kartu WITA -->
-              <div class="rounded-xl bg-gradient-to-b from-amber-950/70 to-slate-900 border-2 border-amber-500/60 p-4">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">WITA • UTC+8 (+1 Jam)</span>
-                  <span id="wita-period-badge" class="text-xs font-semibold text-amber-300">☀️ Pagi Hari</span>
-                </div>
-                <div id="clock-wita" class="text-3xl sm:text-4xl font-mono font-extrabold text-amber-300 tracking-wider my-1">
-                  09:00
-                </div>
-                <p class="text-[11px] text-amber-300/80 font-mono mb-2">Meridian Pangkal: 120° BT</p>
-                <p class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2">
-                  <strong>Wilayah:</strong> Kalimantan Selatan, Kalimantan Timur, Kalimantan Utara, Bali, NTB, NTT, dan seluruh Pulau Sulawesi.
-                </p>
-              </div>
-
-              <!-- Kartu WIT -->
-              <div class="rounded-xl bg-gradient-to-b from-emerald-950/80 to-slate-900 border-2 border-emerald-500/60 p-4">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold">WIT • UTC+9 (+2 Jam)</span>
-                  <span id="wit-period-badge" class="text-xs font-semibold text-amber-300">☀️ Pagi Hari</span>
-                </div>
-                <div id="clock-wit" class="text-3xl sm:text-4xl font-mono font-extrabold text-emerald-300 tracking-wider my-1">
-                  10:00
-                </div>
-                <p class="text-[11px] text-emerald-300/80 font-mono mb-2">Meridian Pangkal: 135° BT</p>
-                <p class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2">
-                  <strong>Wilayah:</strong> Maluku, Maluku Utara, Papua, Papua Barat, Papua Tengah, Papua Pegunungan, Papua Selatan, dan Papua Barat Daya.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BAGIAN B: LETAK GEOGRAFIS (POSISI SILANG) & SIMULASI ANGIN MUSON -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-archipelago-800 to-archipelago-700 px-6 py-4 text-white">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian B • Posisi Silang Dunia &amp; Dinamika Musim</span>
-          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Letak Geografis &amp; Simulasi Angin Muson</h2>
-        </div>
-
-        <div class="p-6 space-y-6">
-          <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
-            Secara geografis, Indonesia terletak pada <strong>posisi silang (cross position)</strong> yang sangat strategis, yakni diapit oleh <strong>dua benua</strong> (Benua Asia di barat laut dan Benua Australia di tenggara) serta <strong>dua samudra</strong> (Samudra Hindia di barat/selatan dan Samudra Pasifik di timur laut). Posisi ini menjadikan Indonesia sebagai jalur pelayaran dan perdagangan internasional sekaligus memicu pergerakan <strong>Angin Muson</strong> yang berganti arah setiap setengah tahun.
-          </p>
-
-          <!-- Kontrol Sakelar Angin Muson -->
-          <div class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
-              <div>
-                <h3 class="text-lg font-extrabold text-ocean-950">Simulasi Interaktif Pergerakan Angin Muson</h3>
-                <p class="text-xs sm:text-sm text-slate-600">Pilih periode angin muson untuk melihat perubahan tekanan udara antara Benua Asia dan Australia serta dampaknya di Indonesia.</p>
-              </div>
-
-              <div class="flex flex-wrap gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm">
-                <button id="btn-muson-barat" onclick="setMonsoonMode('barat')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-ocean-700 text-white shadow">
-                  🌧️ Angin Muson Barat (Okt – Apr)
-                </button>
-                <button id="btn-muson-timur" onclick="setMonsoonMode('timur')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
-                  ☀️ Angin Muson Timur (Apr – Okt)
-                </button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <!-- Diagram SVG Skematik Angin Muson -->
-              <div class="lg:col-span-7 bg-ocean-950 rounded-2xl p-3 border border-ocean-800 shadow-md">
-                <svg viewBox="0 0 600 320" class="w-full h-auto rounded-xl">
-                  <defs>
-                    <marker id="simArrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                      <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8" />
-                    </marker>
-                    <marker id="simArrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                      <path d="M0,0 L8,4 L0,8 Z" fill="#fbbf24" />
-                    </marker>
-                  </defs>
-
-                  <!-- Latar Samudra -->
-                  <rect width="600" height="320" fill="#082f49" />
-                  <!-- Garis Khatulistiwa -->
-                  <line x1="0" y1="160" x2="600" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 5" />
-                  <text x="12" y="154" font-size="10" fill="#cbd5e1" font-family="JetBrains Mono, monospace">0° Khatulistiwa</text>
-
-                  <!-- Benua Asia (Kiri Atas) -->
-                  <g id="sim-asia-box">
-                    <rect x="24" y="20" width="210" height="82" rx="14" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2" />
-                    <text x="129" y="45" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">BENUA ASIA</text>
-                    <text id="sim-asia-season" x="129" y="65" font-size="11" font-weight="700" fill="#93c5fd" text-anchor="middle">Musim Dingin (Suhu Rendah)</text>
-                    <rect x="54" y="74" width="150" height="20" rx="6" fill="#0284c7" />
-                    <text id="sim-asia-pressure" x="129" y="88" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">TEKANAN TINGGI (MAKSIMUM)</text>
-                  </g>
-
-                  <!-- Kepulauan Indonesia (Tengah) -->
-                  <g>
-                    <rect x="195" y="136" width="210" height="48" rx="12" fill="#065f46" stroke="#34d399" stroke-width="2" />
-                    <text x="300" y="158" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">KEPULAUAN INDONESIA</text>
-                    <text id="sim-indo-weather" x="300" y="174" font-size="10.5" font-weight="700" fill="#a7f3d0" text-anchor="middle">🌧️ Sebagian Besar Wilayah Musim Hujan</text>
-                  </g>
-
-                  <!-- Benua Australia (Kanan Bawah) -->
-                  <g id="sim-aus-box">
-                    <rect x="366" y="218" width="210" height="82" rx="14" fill="#7c2d12" stroke="#fb923c" stroke-width="2" />
-                    <text x="471" y="243" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">BENUA AUSTRALIA</text>
-                    <text id="sim-aus-season" x="471" y="263" font-size="11" font-weight="700" fill="#fed7aa" text-anchor="middle">Musim Panas (Suhu Tinggi)</text>
-                    <rect x="396" y="272" width="150" height="20" rx="6" fill="#ea580c" />
-                    <text id="sim-aus-pressure" x="471" y="286" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">TEKANAN RENDAH (MINIMUM)</text>
-                  </g>
-
-                  <!-- Jalur Panah Angin Muson Barat (Asia -> Australia) -->
-                  <g id="sim-arrows-barat">
-                    <path d="M 140,108 Q 180,155 245,175 T 360,242" fill="none" stroke="#38bdf8" stroke-width="4" class="wind-stream" marker-end="url(#simArrowBlue)" />
-                    <path d="M 185,105 Q 235,148 300,168 T 410,214" fill="none" stroke="#38bdf8" stroke-width="4" class="wind-stream" marker-end="url(#simArrowBlue)" />
-                    <text x="430" y="112" font-size="11" font-weight="700" fill="#7dd3fc" text-anchor="middle">Melewati Samudra Pasifik</text>
-                    <text x="430" y="127" font-size="10.5" fill="#bae6fd" text-anchor="middle">&amp; Laut Cina Selatan (Kaya Uap Air)</text>
-                  </g>
-
-                  <!-- Jalur Panah Angin Muson Timur (Australia -> Asia) -->
-                  <g id="sim-arrows-timur" class="hidden">
-                    <path d="M 415,214 Q 365,172 300,152 T 190,106" fill="none" stroke="#fbbf24" stroke-width="4" class="wind-stream" marker-end="url(#simArrowAmber)" />
-                    <path d="M 365,245 Q 305,192 245,172 T 140,110" fill="none" stroke="#fbbf24" stroke-width="4" class="wind-stream" marker-end="url(#simArrowAmber)" />
-                    <text x="155" y="232" font-size="11" font-weight="700" fill="#fde047" text-anchor="middle">Dari Gurun Luas Australia</text>
-                    <text x="155" y="247" font-size="10.5" fill="#fef08a" text-anchor="middle">(Massa Udara Kering &amp; Sedikit Uap Air)</text>
-                  </g>
-                </svg>
-              </div>
-
-              <!-- Penjelasan Dampak Musim -->
-              <div id="monsoon-explanation-card" class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 space-y-3">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-900 text-xs font-extrabold" id="monsoon-badge">
-                  PERIODE OKTOBER – APRIL
-                </div>
-                <h4 id="monsoon-title" class="text-lg font-extrabold text-ocean-950">
-                  Angin Muson Barat → Musim Hujan
-                </h4>
-                <p id="monsoon-desc" class="text-sm text-slate-700 leading-relaxed">
-                  Pada bulan Oktober hingga April, matahari berada di belahan bumi selatan. Benua Australia mengalami musim panas (tekanan udara rendah), sedangkan Benua Asia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari Asia menuju Australia melewati samudra luas sehingga membawa banyak uap air dan menyebabkan <strong>musim hujan</strong> di sebagian besar wilayah Indonesia.
-                </p>
-                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-950">
-                  <strong>Dampak Aktivitas Masyarakat:</strong> <span id="monsoon-impact">Petani mulai mengolah lahan sawah tadah hujan, namun masyarakat perlu mewaspadai potensi banjir dan tanah longsor.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BAGIAN C: LETAK GEOLOGIS & MITIGASI BENCANA -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-slate-900 via-rose-950 to-amber-900 px-6 py-4 text-white">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian C • Dinamika Litosfer &amp; Cincin Api Pasifik</span>
-          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Letak Geologis Indonesia (Pertemuan 3 Lempeng Tektonik)</h2>
-        </div>
-
-        <div class="p-6 space-y-5">
-          <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
-            Secara geologis, Indonesia berada pada jalur pertemuan <strong>tiga lempeng tektonik besar dunia</strong>, yaitu <strong>Lempeng Eurasia</strong> (di utara/barat), <strong>Lempeng Indo-Australia</strong> (di selatan/barat), dan <strong>Lempeng Pasifik</strong> (di timur). Selain itu, Indonesia dilalui dua rangkaian pegunungan muda dunia, yakni <strong>Sirkum Pasifik</strong> dan <strong>Sirkum Mediterania</strong>, yang menjadikannya bagian dari <em>Ring of Fire</em> (Cincin Api Pasifik).
-          </p>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <!-- Kartu Dampak Positif -->
-            <div class="rounded-2xl bg-archipelago-50 border-2 border-archipelago-200 p-5">
-              <div class="flex items-center gap-2.5 mb-3">
-                <span class="w-9 h-9 rounded-xl bg-archipelago-700 text-white flex items-center justify-center font-extrabold text-lg">+</span>
-                <div>
-                  <h3 class="font-extrabold text-archipelago-950 text-base">Dampak Positif (Potensi Sumber Daya)</h3>
-                  <p class="text-xs text-archipelago-700">Anugerah kekayaan alam geologis Nusantara</p>
-                </div>
-              </div>
-              <ul class="space-y-2.5 text-sm text-slate-700">
-                <li class="flex items-start gap-2">
-                  <span class="text-archipelago-700 font-bold mt-0.5">•</span>
-                  <span><strong>Tanah Vulkanik yang Subur:</strong> Abu letusan gunung berapi menghasilkan tanah <em>andosol</em> yang kaya unsur hara, sangat ideal untuk pertanian dan perkebunan.</span>
+              <ul class="mt-2.5 space-y-2 text-xs text-slate-700">
+                <li class="bg-white p-2.5 rounded-xl border border-ocean-200/80">
+                  <strong class="text-ocean-900">Garis Lintang (6° LU – 11° LS):</strong> Menjadikan Indonesia beriklim <strong>tropis</strong>, mendapat penyinaran matahari sepanjang tahun (±12 jam/hari), suhu hangat merata, dan curah hujan tinggi.
                 </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-archipelago-700 font-bold mt-0.5">•</span>
-                  <span><strong>Kekayaan Mineral &amp; Tambang:</strong> Proses geologis membentuk cebakan mineral logam bernilai tinggi (emas, tembaga, nikel, timah) serta cekungan minyak dan gas bumi.</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-archipelago-700 font-bold mt-0.5">•</span>
-                  <span><strong>Energi Panas Bumi (Geothermal):</strong> Indonesia memiliki sekitar 40% cadangan energi panas bumi dunia sebagai sumber energi terbarukan ramah lingkungan.</span>
+                <li class="bg-white p-2.5 rounded-xl border border-ocean-200/80">
+                  <strong class="text-ocean-900">Garis Bujur (95° BT – 141° BT):</strong> Membentang sejauh 46° bujur sehingga wilayah Indonesia terbagi ke dalam <strong>3 zona waktu</strong>: <strong>WIB</strong> (UTC+7), <strong>WITA</strong> (UTC+8), dan <strong>WIT</strong> (UTC+9).
                 </li>
               </ul>
             </div>
+          </div>
 
-            <!-- Kartu Dampak yang Perlu Dimitigasi -->
-            <div class="rounded-2xl bg-rose-50 border-2 border-rose-200 p-5">
-              <div class="flex items-center gap-2.5 mb-3">
-                <span class="w-9 h-9 rounded-xl bg-rose-700 text-white flex items-center justify-center font-extrabold text-lg">!</span>
-                <div>
-                  <h3 class="font-extrabold text-rose-950 text-base">Dampak yang Perlu Dimitigasi (Kebencanaan)</h3>
-                  <p class="text-xs text-rose-700">Kesiapsiagaan menghadapi dinamika kerak bumi</p>
-                </div>
+          <!-- Kartu 2: Letak Geografis -->
+          <div class="rounded-2xl bg-archipelago-50/80 border-2 border-archipelago-200 p-5 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="w-10 h-10 rounded-xl bg-archipelago-700 text-white flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-earth-asia"></i>
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-archipelago-700 text-white font-mono text-xs font-bold">
+                  POSISI SILANG DUNIA
+                </span>
               </div>
-              <ul class="space-y-2.5 text-sm text-slate-700">
-                <li class="flex items-start gap-2">
-                  <span class="text-rose-700 font-bold mt-0.5">•</span>
-                  <span><strong>Gempa Bumi Tektonik &amp; Vulkanik:</strong> Tumbukan antar-lempeng di zona subduksi sering melepaskan energi gempa bumi, terutama di pesisir barat Sumatra, selatan Jawa, hingga Papua.</span>
+              <h3 class="text-lg font-extrabold text-archipelago-950">2. Letak Geografis</h3>
+              <p class="text-xs sm:text-sm text-slate-700 mt-1.5 leading-relaxed">
+                Indonesia terletak di antara <strong>dua benua</strong> (Benua Asia di barat laut dan Benua Australia di tenggara) serta <strong>dua samudra</strong> (Samudra Hindia dan Samudra Pasifik):
+              </p>
+              <ul class="mt-2.5 space-y-2 text-xs text-slate-700">
+                <li class="bg-white p-2.5 rounded-xl border border-archipelago-200/80">
+                  <strong class="text-archipelago-900">Jalur Pelayaran &amp; Perdagangan:</strong> Menjadi titik temu lalu lintas maritim dan udara internasional yang sangat strategis (Selat Malaka, Selat Sunda, Selat Lombok).
                 </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-rose-700 font-bold mt-0.5">•</span>
-                  <span><strong>Erupsi Gunung Api Aktif:</strong> Indonesia memiliki ±127 gunung api aktif yang memerlukan pemantauan vulkanologi dan zona rawan bencana.</span>
+                <li class="bg-white p-2.5 rounded-xl border border-archipelago-200/80">
+                  <strong class="text-archipelago-900">Iklim Muson:</strong> Dipengaruhi pergerakan <strong>Angin Muson Barat</strong> (musim hujan) dan <strong>Angin Muson Timur</strong> (musim kemarau) yang berganti setiap 6 bulan.
                 </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-rose-700 font-bold mt-0.5">•</span>
-                  <span><strong>Potensi Tsunami:</strong> Gempa tektonik berkekuatan besar di dasar laut dapat memicu gelombang tsunami di wilayah pesisir yang berhadapan langsung dengan palung laut.</span>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Kartu 3: Letak Geologis -->
+          <div class="rounded-2xl bg-rose-50/80 border-2 border-rose-200 p-5 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="w-10 h-10 rounded-xl bg-rose-700 text-white flex items-center justify-center text-lg">
+                  <i class="fa-solid fa-volcano"></i>
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-rose-700 text-white font-mono text-xs font-bold">
+                  3 LEMPENG &amp; RING OF FIRE
+                </span>
+              </div>
+              <h3 class="text-lg font-extrabold text-rose-950">3. Letak Geologis</h3>
+              <p class="text-xs sm:text-sm text-slate-700 mt-1.5 leading-relaxed">
+                Indonesia berada pada pertemuan <strong>3 lempeng tektonik besar dunia</strong> (Lempeng Eurasia, Indo-Australia, dan Pasifik) serta dilalui Sirkum Pasifik &amp; Sirkum Mediterania:
+              </p>
+              <ul class="mt-2.5 space-y-2 text-xs text-slate-700">
+                <li class="bg-white p-2.5 rounded-xl border border-rose-200/80">
+                  <strong class="text-emerald-800">Potensi Sumber Daya:</strong> Menghasilkan tanah vulkanik <em>andosol</em> yang sangat subur, kekayaan mineral tambang (emas, nikel, tembaga, timah), dan cadangan panas bumi (geothermal).
+                </li>
+                <li class="bg-white p-2.5 rounded-xl border border-rose-200/80">
+                  <strong class="text-rose-800">Mitigasi Kebencanaan:</strong> Kawasan rawan gempa bumi tektonik, erupsi gunung api aktif (±127 gunung api), dan tsunami di zona subduksi.
                 </li>
               </ul>
             </div>
@@ -1050,10 +982,93 @@
         </div>
       </div>
 
-      <!-- BAGIAN D: TABEL PERBANDINGAN PETA KONVENSIONAL VS PETA DIGITAL -->
+      <!-- BAGIAN B: EKSPLORASI WILAYAH PULAU & DAFTAR LENGKAP 38 PROVINSI INDONESIA -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-archipelago-900 via-ocean-900 to-ocean-800 px-6 py-5 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian B • Wilayah Administratif &amp; Geografis Nusantara</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Daftar Lengkap 38 Provinsi Indonesia &amp; Ibu Kotanya per Pulau</h2>
+            <p class="text-xs sm:text-sm text-ocean-100 mt-1">
+              Telusuri pembagian seluruh 38 provinsi di 7 kelompok pulau/kepulauan Indonesia beserta ibu kota provinsi, zona waktu, dan kondisi geografisnya.
+            </p>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl px-4 py-2.5 text-center flex-shrink-0">
+            <span class="block text-2xl font-mono font-extrabold text-amber-300">38</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-white">Provinsi di Indonesia</span>
+          </div>
+        </div>
+
+        <div class="p-5 sm:p-6 space-y-5">
+          <!-- Bilah Pencarian Cepat & Filter Kelompok Pulau -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-3.5">
+            <div class="flex flex-col md:flex-row gap-3">
+              <!-- Input Pencarian -->
+              <div class="relative flex-grow">
+                <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input
+                  type="text"
+                  id="province-search-input"
+                  oninput="searchProvincesList(this.value)"
+                  placeholder="Cari nama provinsi, ibu kota, atau pulau (misal: Banjarbaru, Papua Pegunungan, Sumatera, Makassar)..."
+                  class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-800 focus:border-ocean-600 focus:outline-none shadow-sm"
+                />
+                <button
+                  id="clear-search-btn"
+                  onclick="clearProvinceSearch()"
+                  title="Hapus pencarian"
+                  class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs font-bold px-1.5 py-0.5 rounded"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <!-- Ringkasan Jumlah Hasil Filter -->
+              <div class="flex items-center justify-between md:justify-end gap-2 px-3 py-2 rounded-xl bg-ocean-100/80 text-ocean-950 border border-ocean-200 text-xs font-bold">
+                <i class="fa-solid fa-filter text-ocean-700"></i>
+                <span id="province-filter-summary">Menampilkan 38 dari 38 Provinsi</span>
+              </div>
+            </div>
+
+            <!-- Tombol Filter Pulau -->
+            <div id="island-filter-buttons" class="flex flex-wrap gap-2">
+              <button onclick="filterProvincesByIsland('all')" data-filter="all" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition bg-ocean-800 text-white shadow-sm">
+                Semua Pulau (1–38)
+              </button>
+              <button onclick="filterProvincesByIsland('sumatra')" data-filter="sumatra" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Sumatera (1–10)
+              </button>
+              <button onclick="filterProvincesByIsland('jawa')" data-filter="jawa" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Jawa (11–16)
+              </button>
+              <button onclick="filterProvincesByIsland('nusatenggara')" data-filter="nusatenggara" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Bali &amp; Nusa Tenggara (17–19)
+              </button>
+              <button onclick="filterProvincesByIsland('kalimantan')" data-filter="kalimantan" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Kalimantan (20–24)
+              </button>
+              <button onclick="filterProvincesByIsland('sulawesi')" data-filter="sulawesi" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Sulawesi (25–30)
+              </button>
+              <button onclick="filterProvincesByIsland('maluku')" data-filter="maluku" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Kepulauan Maluku (31–32)
+              </button>
+              <button onclick="filterProvincesByIsland('papua')" data-filter="papua" class="island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50">
+                Papua (33–38)
+              </button>
+            </div>
+          </div>
+
+          <!-- Kontainer Kartu 7 Kelompok Pulau & Daftar Provinsinya (Dirender Dinamis oleh JS) -->
+          <div id="provinces-explorer-container" class="space-y-6">
+            <!-- Kartu pulau & tabel provinsi dirender oleh JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- BAGIAN C: TABEL PERBANDINGAN PETA KONVENSIONAL VS PETA DIGITAL -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="bg-gradient-to-r from-ocean-950 to-ocean-800 px-6 py-4 text-white">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian D • Analisis Perbandingan Media Kartografi</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Bagian C • Analisis Perbandingan Media Kartografi</span>
           <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Tabel Perbandingan Peta Konvensional vs. Peta Digital</h2>
         </div>
 
@@ -1072,52 +1087,52 @@
             </thead>
             <tbody class="divide-y divide-slate-200 text-xs sm:text-sm text-slate-700">
               <tr class="hover:bg-slate-50/80">
-                <td class="py-3.5 px-4 font-bold text-slate-900">1. Bentuk Fisik &amp; Media</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">1. Media Penyajian</td>
                 <td class="py-3.5 px-4 bg-parchment-50/40 border-x border-slate-200">
-                  Dicetak di atas media fisik seperti kertas, karton, atau lembaran atlas; bersifat tetap dan memerlukan ruang penyimpanan fisik.
+                  Dicetak di atas media fisik seperti kertas, karton, atau buku atlas; bersifat tetap dan memerlukan ruang penyimpanan fisik.
                 </td>
                 <td class="py-3.5 px-4 bg-sky-50/30">
-                  Tersimpan dalam format data spasial elektronik (vektor/raster) yang diakses melalui layar gawai, komputer, atau peramban web.
+                  Disajikan dalam format data spasial digital (vektor/raster) pada layar komputer, gawai, atau peramban web.
                 </td>
               </tr>
 
               <tr class="hover:bg-slate-50/80">
-                <td class="py-3.5 px-4 font-bold text-slate-900">2. Skala Peta</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">2. Pembaruan Data</td>
                 <td class="py-3.5 px-4 bg-parchment-50/40 border-x border-slate-200">
-                  <strong>Skala statis (tetap)</strong>; tingkat ketelitian objek tidak dapat diperbesar melebihi cetakan aslinya.
+                  Memerlukan proses cetak ulang untuk memperbarui pemekaran provinsi (seperti 38 provinsi Indonesia) atau infrastruktur baru.
                 </td>
                 <td class="py-3.5 px-4 bg-sky-50/30">
-                  <strong>Skala dinamis (interaktif)</strong>; dapat diperbesar (<em>zoom in</em>) hingga tingkat jalan atau diperkecil (<em>zoom out</em>) hingga skala global secara seketika.
+                  Dapat diperbarui secara cepat bahkan <em>real-time</em> (pemekaran wilayah, cuaca, titik panas, maupun pusat gempa).
                 </td>
               </tr>
 
               <tr class="hover:bg-slate-50/80">
-                <td class="py-3.5 px-4 font-bold text-slate-900">3. Pembaruan Data</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">3. Interaktivitas &amp; Skala</td>
                 <td class="py-3.5 px-4 bg-parchment-50/40 border-x border-slate-200">
-                  Memerlukan proses cetak ulang untuk memperbarui perubahan batas wilayah, pemekaran provinsi, atau infrastruktur baru.
+                  <strong>Skala statis (tetap)</strong>; tingkat ketelitian objek tidak dapat diperbesar melebihi ukuran cetakan aslinya.
                 </td>
                 <td class="py-3.5 px-4 bg-sky-50/30">
-                  Dapat diperbarui secara cepat bahkan <em>real-time</em> (misalnya data cuaca, kemacetan, titik panas kebakaran hutan, atau pusat gempa).
+                  <strong>Skala dinamis (interaktif)</strong>; dapat diperbesar (<em>zoom in</em>) hingga tingkat kota/jalan atau diperkecil (<em>zoom out</em>) secara instan.
                 </td>
               </tr>
 
               <tr class="hover:bg-slate-50/80">
-                <td class="py-3.5 px-4 font-bold text-slate-900">4. Lapisan Informasi (Layer)</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">4. Komponen / Layer</td>
                 <td class="py-3.5 px-4 bg-parchment-50/40 border-x border-slate-200">
-                  Seluruh simbol digabung dalam satu tampilan datar; terlalu banyak informasi dalam satu peta dapat menyulitkan pembacaan.
+                  Seluruh simbol digabung dalam satu lembar datar dengan unsur wajib (judul, mawar angin, skala batang, legenda).
                 </td>
                 <td class="py-3.5 px-4 bg-sky-50/30">
-                  Mendukung sistem berlapis (<em>multi-layer / overlay</em>) yang dapat dinyalakan atau dimatikan sesuai kebutuhan analisis (misal: zona waktu, lempeng, curah hujan).
+                  Mendukung sistem berlapis (<em>multi-layer / overlay</em>) yang dapat dinyalakan atau dimatikan sesuai topik analisis geografis.
                 </td>
               </tr>
 
               <tr class="hover:bg-slate-50/80">
-                <td class="py-3.5 px-4 font-bold text-slate-900">5. Fungsi Navigasi &amp; Analisis</td>
+                <td class="py-3.5 px-4 font-bold text-slate-900">5. Contoh Penggunaan dalam Analisis Geografis</td>
                 <td class="py-3.5 px-4 bg-parchment-50/40 border-x border-slate-200">
-                  Mengandalkan pengamatan visual manual menggunakan mawar angin, garis lintang/bujur, dan penggaris untuk mengukur jarak.
+                  Menentukan letak astronomis pulau secara manual melalui garis lintang/bujur dan mempelajari sebaran bentang alam di kelas.
                 </td>
                 <td class="py-3.5 px-4 bg-sky-50/30">
-                  Terintegrasi dengan GPS untuk pelacakan posisi otomatis, pencarian rute tercepat, pembacaan koordinat instan, dan kalkulasi luas otomatis.
+                  Analisis tumpang susun (<em>overlay</em>) zona rawan bencana tektonik dengan sebaran permukiman provinsi serta navigasi GPS.
                 </td>
               </tr>
             </tbody>
@@ -1128,24 +1143,262 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- TAB 3: KUIS EVALUASI INTERAKTIF                                       -->
+    <!-- TAB 3: SIMULASI ZONA WAKTU & ANGIN MUSON                              -->
     <!-- ===================================================================== -->
-    <section id="tab-content-3" class="hidden space-y-6">
+    <section id="tab-content-3" class="hidden space-y-8">
+      
+      <!-- BAGIAN A: SIMULASI PEMBAGIAN 3 ZONA WAKTU INDONESIA (WIB, WITA, WIT) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-ocean-900 to-ocean-800 px-6 py-4 text-white">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Simulasi 1 • Dampak Garis Bujur 95° BT – 141° BT</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Simulasi Pembagian 3 Zona Waktu Indonesia (WIB, WITA, WIT)</h2>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="rounded-2xl bg-slate-900 text-white p-5 sm:p-6 border border-slate-700 shadow-inner">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
+              <div>
+                <h3 class="text-lg font-extrabold text-amber-300 flex items-center gap-2">
+                  <i class="fa-regular fa-clock"></i>
+                  <span>Pengatur Waktu Real-Time Nusantara</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+                  Geser pengatur jam WIB (00:00 – 23:00) untuk mengamati perbedaan waktu dan daftar provinsi pada masing-masing zona waktu.
+                </p>
+              </div>
+
+              <!-- Tombol Preset Waktu Cepat -->
+              <div class="flex flex-wrap gap-2">
+                <button onclick="setWibMinutes(0)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">00:00 WIB</button>
+                <button onclick="setWibMinutes(420)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">07:00 WIB</button>
+                <button onclick="setWibMinutes(720)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">12:00 WIB</button>
+                <button onclick="setWibMinutes(1020)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">17:00 WIB</button>
+                <button onclick="setWibMinutes(1380)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-sky-600 text-xs font-bold border border-slate-600 transition">23:00 WIB</button>
+              </div>
+            </div>
+
+            <!-- Slider Waktu WIB -->
+            <div class="mb-6 bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+              <div class="flex justify-between text-xs font-mono text-slate-400 mb-2">
+                <span>00:00 WIB</span>
+                <span class="text-amber-300 font-bold">Geser untuk mengubah jam acuan WIB</span>
+                <span>23:00 WIB</span>
+              </div>
+              <input id="wib-time-slider" type="range" min="0" max="1380" step="15" value="480" oninput="updateTimeZoneSimulator(this.value)" class="w-full time-slider" />
+            </div>
+
+            <!-- 3 Kartu Jam Digital Sinkron + Daftar Lengkap Provinsi per Zona Waktu -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <!-- Kartu WIB (18 Provinsi) -->
+              <div class="rounded-xl bg-gradient-to-b from-sky-950 to-slate-900 border-2 border-sky-500/60 p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-xs font-bold">WIB • UTC+7</span>
+                    <span id="wib-period-badge" class="text-xs font-semibold text-amber-300">🌅 Pagi Hari</span>
+                  </div>
+                  <div id="clock-wib" class="text-3xl sm:text-4xl font-mono font-extrabold text-white tracking-wider my-1">
+                    08:00
+                  </div>
+                  <p class="text-[11px] text-sky-300 font-mono mb-2">Meridian Pangkal: 105° BT • 18 Provinsi</p>
+                </div>
+                <div class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2.5">
+                  <strong class="text-sky-300 block mb-1">Daftar 18 Provinsi WIB (Nomor Peta):</strong>
+                  <p class="text-[11px] text-slate-300">
+                    [1] Aceh, [2] Sumatera Utara, [3] Sumatera Barat, [4] Riau, [5] Kepulauan Riau, [6] Jambi, [7] Bengkulu, [8] Sumatera Selatan, [9] Kepulauan Bangka Belitung, [10] Lampung, [11] Banten, [12] DKI Jakarta, [13] Jawa Barat, [14] Jawa Tengah, [15] DI Yogyakarta, [16] Jawa Timur, [20] Kalimantan Barat, dan [21] Kalimantan Tengah.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Kartu WITA (12 Provinsi) -->
+              <div class="rounded-xl bg-gradient-to-b from-amber-950/70 to-slate-900 border-2 border-amber-500/60 p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">WITA • UTC+8 (+1 Jam)</span>
+                    <span id="wita-period-badge" class="text-xs font-semibold text-amber-300">🌅 Pagi Hari</span>
+                  </div>
+                  <div id="clock-wita" class="text-3xl sm:text-4xl font-mono font-extrabold text-amber-300 tracking-wider my-1">
+                    09:00
+                  </div>
+                  <p class="text-[11px] text-amber-300/80 font-mono mb-2">Meridian Pangkal: 120° BT • 12 Provinsi</p>
+                </div>
+                <div class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2.5">
+                  <strong class="text-amber-300 block mb-1">Daftar 12 Provinsi WITA (Nomor Peta):</strong>
+                  <p class="text-[11px] text-slate-300">
+                    [17] Bali, [18] Nusa Tenggara Barat, [19] Nusa Tenggara Timur, [22] Kalimantan Selatan, [23] Kalimantan Timur, [24] Kalimantan Utara, [25] Sulawesi Utara, [26] Gorontalo, [27] Sulawesi Tengah, [28] Sulawesi Barat, [29] Sulawesi Selatan, dan [30] Sulawesi Tenggara.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Kartu WIT (8 Provinsi) -->
+              <div class="rounded-xl bg-gradient-to-b from-emerald-950/80 to-slate-900 border-2 border-emerald-500/60 p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold">WIT • UTC+9 (+2 Jam)</span>
+                    <span id="wit-period-badge" class="text-xs font-semibold text-amber-300">🌅 Pagi Hari</span>
+                  </div>
+                  <div id="clock-wit" class="text-3xl sm:text-4xl font-mono font-extrabold text-emerald-300 tracking-wider my-1">
+                    10:00
+                  </div>
+                  <p class="text-[11px] text-emerald-300/80 font-mono mb-2">Meridian Pangkal: 135° BT • 8 Provinsi</p>
+                </div>
+                <div class="text-xs text-slate-300 leading-relaxed border-t border-slate-700/80 pt-2.5">
+                  <strong class="text-emerald-300 block mb-1">Daftar 8 Provinsi WIT (Nomor Peta):</strong>
+                  <p class="text-[11px] text-slate-300">
+                    [31] Maluku Utara, [32] Maluku, [33] Papua Barat Daya, [34] Papua Barat, [35] Papua Tengah, [36] Papua, [37] Papua Pegunungan, dan [38] Papua Selatan.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAGIAN B: SIMULASI ANGIN MUSON (MUSON BARAT VS MUSON TIMUR) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-archipelago-800 to-archipelago-700 px-6 py-4 text-white">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Simulasi 2 • Dampak Posisi Silang Geografis</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Simulasi Pergerakan Angin Muson (Muson Barat vs. Muson Timur)</h2>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <div class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+              <div>
+                <h3 class="text-lg font-extrabold text-ocean-950">Pilih Periode Angin Muson</h3>
+                <p class="text-xs sm:text-sm text-slate-600">Amati animasi pergerakan massa udara antara Benua Asia dan Australia pada peta mini Indonesia berikut.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm">
+                <button id="btn-muson-barat" onclick="setMonsoonMode('barat')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-ocean-700 text-white shadow">
+                  🌧️ Angin Muson Barat (Okt – Apr)
+                </button>
+                <button id="btn-muson-timur" onclick="setMonsoonMode('timur')" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100">
+                  ☀️ Angin Muson Timur (Apr – Okt)
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <!-- Peta Mini Kepulauan Indonesia & Animasi Arah Angin Muson -->
+              <div class="lg:col-span-7 bg-ocean-950 rounded-2xl p-3 border border-ocean-800 shadow-md">
+                <svg viewBox="0 0 600 320" class="w-full h-auto rounded-xl">
+                  <defs>
+                    <marker id="simArrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8" />
+                    </marker>
+                    <marker id="simArrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                      <path d="M0,0 L8,4 L0,8 Z" fill="#fbbf24" />
+                    </marker>
+                  </defs>
+
+                  <!-- Latar Samudra -->
+                  <rect width="600" height="320" fill="#082f49" />
+                  <!-- Garis Khatulistiwa -->
+                  <line x1="0" y1="155" x2="600" y2="155" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 5" />
+                  <text x="12" y="149" font-size="10" fill="#cbd5e1" font-family="JetBrains Mono, monospace">0° Khatulistiwa</text>
+
+                  <!-- Siluet Mini Kepulauan Indonesia di Tengah -->
+                  <g fill="#10b981" stroke="#a7f3d0" stroke-width="1" opacity="0.88">
+                    <!-- Sumatra -->
+                    <path d="M 110,115 L 130,112 L 175,165 L 185,195 L 172,198 L 125,148 Z" />
+                    <!-- Jawa -->
+                    <path d="M 188,205 L 255,212 L 258,222 L 188,215 Z" />
+                    <!-- Kalimantan -->
+                    <path d="M 220,145 L 265,135 L 285,155 L 270,185 L 225,180 Z" />
+                    <!-- Sulawesi -->
+                    <path d="M 300,150 L 330,145 L 322,165 L 335,180 L 312,188 L 302,172 Z" />
+                    <!-- Bali & Nusa Tenggara -->
+                    <path d="M 265,216 L 345,222 L 345,230 L 265,224 Z" />
+                    <!-- Maluku -->
+                    <circle cx="372" cy="155" r="7" />
+                    <ellipse cx="385" cy="182" rx="14" ry="5" />
+                    <!-- Papua -->
+                    <path d="M 410,162 L 485,172 L 485,212 L 442,198 L 415,178 Z" />
+                  </g>
+
+                  <!-- Benua Asia (Kiri Atas) -->
+                  <g id="sim-asia-box">
+                    <rect x="18" y="16" width="215" height="78" rx="14" fill="#1e3a8a" fill-opacity="0.92" stroke="#60a5fa" stroke-width="2" />
+                    <text x="125" y="40" font-size="13.5" font-weight="800" fill="#ffffff" text-anchor="middle">BENUA ASIA</text>
+                    <text id="sim-asia-season" x="125" y="58" font-size="10.5" font-weight="700" fill="#93c5fd" text-anchor="middle">Musim Dingin (Suhu Rendah)</text>
+                    <rect x="46" y="66" width="158" height="20" rx="6" fill="#0284c7" />
+                    <text id="sim-asia-pressure" x="125" y="80" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">TEKANAN TINGGI (MAKSIMUM)</text>
+                  </g>
+
+                  <!-- Status Cuaca Indonesia -->
+                  <g>
+                    <rect x="175" y="242" width="250" height="26" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1.2" />
+                    <text id="sim-indo-weather" x="300" y="259" font-size="10.5" font-weight="800" fill="#a7f3d0" text-anchor="middle">🌧️ Sebagian Besar Wilayah Musim Hujan</text>
+                  </g>
+
+                  <!-- Benua Australia (Kanan Bawah) -->
+                  <g id="sim-aus-box">
+                    <rect x="366" y="224" width="216" height="78" rx="14" fill="#7c2d12" fill-opacity="0.92" stroke="#fb923c" stroke-width="2" />
+                    <text x="474" y="248" font-size="13.5" font-weight="800" fill="#ffffff" text-anchor="middle">BENUA AUSTRALIA</text>
+                    <text id="sim-aus-season" x="474" y="266" font-size="10.5" font-weight="700" fill="#fed7aa" text-anchor="middle">Musim Panas (Suhu Tinggi)</text>
+                    <rect x="395" y="274" width="158" height="20" rx="6" fill="#ea580c" />
+                    <text id="sim-aus-pressure" x="474" y="288" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">TEKANAN RENDAH (MINIMUM)</text>
+                  </g>
+
+                  <!-- Jalur Panah Angin Muson Barat (Asia -> Australia) -->
+                  <g id="sim-arrows-barat">
+                    <path d="M 135,100 Q 175,155 245,185 T 362,248" fill="none" stroke="#38bdf8" stroke-width="4" class="wind-stream" marker-end="url(#simArrowBlue)" />
+                    <path d="M 185,98 Q 245,148 310,175 T 415,220" fill="none" stroke="#38bdf8" stroke-width="4" class="wind-stream" marker-end="url(#simArrowBlue)" />
+                    <text x="435" y="75" font-size="11" font-weight="700" fill="#7dd3fc" text-anchor="middle">Melewati Samudra Pasifik</text>
+                    <text x="435" y="90" font-size="10.5" fill="#bae6fd" text-anchor="middle">&amp; Laut Cina Selatan (Kaya Uap Air)</text>
+                  </g>
+
+                  <!-- Jalur Panah Angin Muson Timur (Australia -> Asia) -->
+                  <g id="sim-arrows-timur" class="hidden">
+                    <path d="M 415,220 Q 355,172 295,148 T 185,98" fill="none" stroke="#fbbf24" stroke-width="4" class="wind-stream" marker-end="url(#simArrowAmber)" />
+                    <path d="M 362,248 Q 300,192 240,168 T 135,102" fill="none" stroke="#fbbf24" stroke-width="4" class="wind-stream" marker-end="url(#simArrowAmber)" />
+                    <text x="125" y="278" font-size="11" font-weight="700" fill="#fde047" text-anchor="middle">Dari Gurun Luas Australia</text>
+                    <text x="125" y="293" font-size="10.5" fill="#fef08a" text-anchor="middle">(Massa Udara Kering)</text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Penjelasan Dampak Musim -->
+              <div id="monsoon-explanation-card" class="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 space-y-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-900 text-xs font-extrabold" id="monsoon-badge">
+                  PERIODE OKTOBER – APRIL
+                </div>
+                <h4 id="monsoon-title" class="text-lg font-extrabold text-ocean-950">
+                  Angin Muson Barat → Musim Hujan
+                </h4>
+                <p id="monsoon-desc" class="text-sm text-slate-700 leading-relaxed">
+                  Pada bulan Oktober hingga April, matahari berada di belahan bumi selatan. Benua Australia mengalami musim panas (tekanan udara rendah), sedangkan Benua Asia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari Asia menuju Australia melewati samudra luas sehingga membawa banyak uap air dan menyebabkan <strong>musim hujan</strong> di sebagian besar wilayah Indonesia.
+                </p>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-950">
+                  <strong>Dampak bagi Masyarakat:</strong> <span id="monsoon-impact">Petani mulai mengolah lahan sawah tadah hujan, namun masyarakat perlu mewaspadai potensi banjir dan tanah longsor.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 4: KUIS EVALUASI INTERAKTIF (10 SOAL PILIHAN GANDA)               -->
+    <!-- ===================================================================== -->
+    <section id="tab-content-4" class="hidden space-y-6">
       
       <!-- Header Kuis & Status Progres -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-extrabold uppercase tracking-wider text-archipelago-700">Evaluasi Pemahaman Siswa</span>
-          <h2 class="text-xl sm:text-2xl font-extrabold text-ocean-950 mt-0.5">Kuis Letak &amp; Kondisi Geografis Indonesia</h2>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-ocean-950 mt-0.5">Kuis Letak, Kondisi Geografis &amp; 38 Provinsi Indonesia</h2>
           <p class="text-sm text-slate-600 mt-1">
-            Pilih satu jawaban yang paling tepat pada setiap soal. Umpan balik dan pembahasan akan langsung muncul setelah Anda memilih jawaban.
+            Pilih satu jawaban yang paling tepat pada setiap soal. Umpan balik dan pembahasan konsep akan langsung muncul setelah Anda memilih jawaban.
           </p>
         </div>
 
         <div class="flex items-center gap-3 bg-ocean-50 border border-ocean-200 px-4 py-3 rounded-2xl self-start sm:self-auto">
           <div>
             <span class="block text-[11px] font-bold uppercase text-ocean-700">Progres Kuis</span>
-            <span id="quiz-progress-text" class="text-lg font-extrabold text-ocean-950 font-mono">0 / 8 Soal</span>
+            <span id="quiz-progress-text" class="text-lg font-extrabold text-ocean-950 font-mono">0 / 10 Soal</span>
           </div>
           <button onclick="resetQuiz()" class="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-xs font-bold text-slate-700 border border-slate-300 shadow-sm transition">
             Ulangi Kuis
@@ -1153,9 +1406,9 @@
         </div>
       </div>
 
-      <!-- Daftar 8 Soal Pilihan Ganda (Dirender oleh JS) -->
+      <!-- Daftar 10 Soal Pilihan Ganda (Dirender oleh JS) -->
       <div id="quiz-questions-container" class="space-y-5">
-        <!-- Soal 1 - 8 -->
+        <!-- Soal 1 - 10 -->
       </div>
 
       <!-- Panel Skor Akhir & Ketercapaian Tujuan Pembelajaran -->
@@ -1179,7 +1432,7 @@
               100
             </div>
             <span id="result-correct-count" class="text-xs text-ocean-200 font-semibold">
-              8 dari 8 soal benar
+              10 dari 10 soal benar
             </span>
           </div>
         </div>
@@ -1187,10 +1440,10 @@
         <div class="mt-6 pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap gap-2">
             <button onclick="switchMainTab(1)" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs sm:text-sm font-bold text-white transition">
-              ← Tinjau Peta Interaktif
+              ← Tinjau Peta Ganda
             </button>
             <button onclick="switchMainTab(2)" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs sm:text-sm font-bold text-white transition">
-              ← Tinjau Materi &amp; Simulasi
+              ← Tinjau Materi &amp; 38 Provinsi
             </button>
           </div>
           <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-ocean-950 font-extrabold text-sm shadow-md transition">
@@ -1207,7 +1460,7 @@
   <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
       <p class="font-semibold text-slate-300">
-        Jelajah Nusantara • Media Pembelajaran Interaktif IPS / Geografi
+        Jelajah Nusantara • Media Pembelajaran Interaktif IPS / Geografi (38 Provinsi Indonesia)
       </p>
       <p>
         Kompetensi: Menjelaskan Letak &amp; Kondisi Geografis Indonesia dengan Peta Konvensional &amp; Digital
@@ -1218,72 +1471,130 @@
   <!-- ==================== LOGIKA JAVASCRIPT INTERAKTIF ==================== -->
   <script>
     /* =========================================================================
-       1. DATA PROFIL GEOGRAFIS 7 WILAYAH KEPULAUAN INDONESIA
+       1. DATA PROFIL GEOGRAFIS 7 WILAYAH KEPULAUAN & PENANDA ANGKA 1–38 PROVINSI
        ========================================================================= */
     const ISLAND_DATA = {
       sumatra: {
-        name: "Pulau Sumatra & Sekitarnya",
+        name: "Pulau Sumatera",
+        shortName: "Sumatera",
+        badgeColor: "#047857",
         timezone: "WIB (UTC+7)",
+        astronomical: "6° LU – 6° LS dan 95° BT – 106° BT",
         borders: [
           "Utara: Teluk Benggala, Malaysia, dan Thailand",
           "Selatan: Selat Sunda dan Pulau Jawa",
           "Barat: Samudra Hindia",
           "Timur: Selat Malaka, Selat Karimata, dan Pulau Kalimantan"
         ],
-        landscape: "Membentang dari barat laut ke tenggara dengan rangkaian Pegunungan Bukit Barisan di sisi barat, deretan gunung api aktif (Kerinci, Sinabung, Marapi), Danau Toba sebagai kaldera vulkanik terbesar, serta dataran rendah rawa luas di pantai timur.",
-        resources: "Beriklim tropis basah dengan curah hujan tinggi sepanjang tahun. Kaya akan sumber daya perkebunan (kelapa sawit, karet, kopi), hutan hujan tropis, minyak bumi, gas alam (Aceh, Riau, Sumsel), serta timah di Bangka Belitung."
+        landscape: "Membentang dari barat laut ke tenggara dengan jalur subduksi Lempeng Indo-Australia di barat, Pegunungan Bukit Barisan, deretan gunung api aktif (Kerinci, Sinabung, Marapi), Danau Toba sebagai kaldera vulkanik terbesar, serta dataran rendah rawa luas di pantai timur.",
+        resources: "Beriklim tropis basah dengan curah hujan tinggi sepanjang tahun. Kaya akan perkebunan (kelapa sawit, karet, kopi), hutan hujan tropis, minyak bumi, gas alam (Aceh, Riau, Sumsel), serta timah di Bangka Belitung.",
+        provinces: [
+          { num: 1, name: "Aceh", capital: "Banda Aceh", tz: "WIB", x: 65, y: 92, info: "Provinsi paling barat Indonesia (Sabang, Pulau Weh) yang berbatasan dengan Selat Malaka dan Samudra Hindia." },
+          { num: 2, name: "Sumatera Utara", capital: "Medan", tz: "WIB", x: 105, y: 130, info: "Memiliki Danau Toba (kaldera supervulkan terbesar di dunia) dan pusat perekonomian utama di pesisir Selat Malaka." },
+          { num: 3, name: "Sumatera Barat", capital: "Padang", tz: "WIB", x: 132, y: 184, info: "Didominasi Pegunungan Bukit Barisan, Danau Maninjau, Danau Singkarak, serta Kepulauan Mentawai di Samudra Hindia." },
+          { num: 4, name: "Riau", capital: "Pekanbaru", tz: "WIB", x: 164, y: 174, info: "Memiliki dataran rendah dengan sungai-sungai besar (Siak, Kampar, Indragiri) serta kaya minyak bumi dan kelapa sawit." },
+          { num: 5, name: "Kepulauan Riau", capital: "Tanjungpinang", tz: "WIB", x: 228, y: 176, info: "Wilayah kepulauan strategis di jalur pelayaran internasional Selat Malaka dan Laut Natuna (Batam, Bintan, Natuna)." },
+          { num: 6, name: "Jambi", capital: "Jambi", tz: "WIB", x: 184, y: 218, info: "Terdapat Gunung Kerinci (gunung api tertinggi di Indonesia, 3.805 mdpl) dan Sungai Batanghari." },
+          { num: 7, name: "Bengkulu", capital: "Bengkulu", tz: "WIB", x: 174, y: 258, info: "Terletak di pesisir barat daya Sumatera yang berhadapan langsung dengan Samudra Hindia dan Bukit Barisan." },
+          { num: 8, name: "Sumatera Selatan", capital: "Palembang", tz: "WIB", x: 220, y: 248, info: "Dialiri Sungai Musi dan memiliki cadangan batu bara, minyak bumi, serta gas alam yang melimpah." },
+          { num: 9, name: "Kepulauan Bangka Belitung", capital: "Pangkalpinang", tz: "WIB", x: 274, y: 248, info: "Provinsi kepulauan di timur Sumatera yang merupakan penghasil timah utama di Indonesia." },
+          { num: 10, name: "Lampung", capital: "Bandar Lampung", tz: "WIB", x: 244, y: 304, info: "Gerbang selatan Pulau Sumatera di tepi Selat Sunda, berdekatan dengan kompleks Gunung Anak Krakatau." }
+        ]
       },
       jawa: {
-        name: "Pulau Jawa & Madura",
+        name: "Pulau Jawa",
+        shortName: "Jawa",
+        badgeColor: "#b91c1c",
         timezone: "WIB (UTC+7)",
+        astronomical: "5° LS – 8° LS dan 105° BT – 114° BT",
         borders: [
           "Utara: Laut Jawa dan Pulau Kalimantan",
           "Selatan: Samudra Hindia",
-          "Barat: Selat Sunda dan Pulau Sumatra",
+          "Barat: Selat Sunda dan Pulau Sumatera",
           "Timur: Selat Bali dan Pulau Bali"
         ],
-        landscape: "Didominasi jalur pegunungan vulkanik aktif di bagian tengah hingga selatan (Gunung Semeru, Merapi, Bromo, Slamet, Gede), dataran aluvial subur di pantai utara (Pantura), serta sungai-sungai besar seperti Bengawan Solo dan Brantas.",
-        resources: "Memiliki tanah vulkanik andosol dan aluvial yang sangat subur sehingga menjadi lumbung pangan nasional (padi, sayuran, tebu). Terdapat perbedaan curah hujan yang lebih kering ke arah timur, serta potensi energi panas bumi (geothermal) yang melimpah."
-      },
-      kalimantan: {
-        name: "Pulau Kalimantan",
-        timezone: "WIB & WITA",
-        borders: [
-          "Utara: Malaysia Timur (Sarawak & Sabah), Brunei Darussalam, dan Laut Tiongkok Selatan",
-          "Selatan: Laut Jawa dan Pulau Jawa",
-          "Barat: Selat Karimata dan Pulau Sumatra",
-          "Timur: Selat Makassar dan Pulau Sulawesi"
-        ],
-        landscape: "Relatif stabil secara tektonik (minim gunung api aktif) dengan bentang alam dataran rendah yang luas, hutan hujan tropis lebat, Pegunungan Muller-Schwaner di tengah, serta jaringan sungai besar seperti Sungai Kapuas, Mahakam, dan Barito.",
-        resources: "Dilalui garis Khatulistiwa (Pontianak) dengan curah hujan merata sepanjang tahun. Merupakan paru-paru dunia dengan keanekaragaman hayati tinggi serta cadangan batu bara, minyak bumi, gas alam, dan bauksit terbesar di Indonesia."
-      },
-      sulawesi: {
-        name: "Pulau Sulawesi",
-        timezone: "WITA (UTC+8)",
-        borders: [
-          "Utara: Laut Sulawesi dan Filipina",
-          "Selatan: Laut Flores dan Nusa Tenggara",
-          "Barat: Selat Makassar dan Pulau Kalimantan",
-          "Timur: Laut Maluku dan Kepulauan Maluku"
-        ],
-        landscape: "Memiliki bentuk khas menyerupai huruf 'K' akibat pertemuan tiga lempeng tektonik. Topografinya didominasi pegunungan terjal, lembah patahan (Sesar Palu-Koro), danau tektonik dalam (Danau Poso, Matano, Towuti), serta gunung api aktif di lengan utara.",
-        resources: "Merupakan zona peralihan flora-fauna (Garis Wallace & Weber) dengan satwa endemik unik seperti anoa, babirusa, dan maleo. Kaya sumber daya mineral nikel (Sorowako, Morowali), aspal alam (Buton), serta perikanan laut."
+        landscape: "Didominasi jalur pegunungan vulkanik aktif Cincin Api Pasifik di bagian tengah hingga selatan (Gunung Semeru, Merapi, Bromo, Slamet, Gede), dataran aluvial subur di pantai utara (Pantura), serta sungai besar seperti Bengawan Solo dan Brantas.",
+        resources: "Memiliki tanah vulkanik andosol dan aluvial yang sangat subur sebagai lumbung pangan nasional, potensi panas bumi (geothermal), serta kepadatan penduduk dan pusat industri tertinggi di Indonesia.",
+        provinces: [
+          { num: 11, name: "Banten", capital: "Serang", tz: "WIB", x: 252, y: 336, info: "Terletak di ujung barat Pulau Jawa, penghubung utama Jawa–Sumatera melalui Pelabuhan Merak di Selat Sunda." },
+          { num: 12, name: "DKI Jakarta", capital: "Jakarta", tz: "WIB", x: 278, y: 316, info: "Terletak di pesisir Teluk Jakarta (Pantai Utara Jawa), pusat perekonomian, jasa, dan perdagangan nasional." },
+          { num: 13, name: "Jawa Barat", capital: "Bandung", tz: "WIB", x: 298, y: 348, info: "Didominasi dataran tinggi Parahyangan dan deretan gunung api (Tangkuban Parahu, Gede, Ciremai) serta Sungai Citarum." },
+          { num: 14, name: "Jawa Tengah", capital: "Semarang", tz: "WIB", x: 342, y: 334, info: "Memiliki Dataran Tinggi Dieng, Gunung Slamet, Gunung Merapi, serta dataran rendah pesisir utara dan selatan." },
+          { num: 15, name: "DI Yogyakarta", capital: "Yogyakarta", tz: "WIB", x: 348, y: 376, info: "Membentang dari lereng Gunung Merapi di utara hingga pesisir pantai selatan Samudra Hindia (Parangtritis)." },
+          { num: 16, name: "Jawa Timur", capital: "Surabaya", tz: "WIB", x: 396, y: 356, info: "Provinsi terluas di Pulau Jawa yang mencakup Pulau Madura, Gunung Semeru, Bromo, dan Selat Bali." }
+        ]
       },
       nusatenggara: {
         name: "Bali & Kepulauan Nusa Tenggara",
+        shortName: "Bali & Nusa Tenggara",
+        badgeColor: "#d97706",
         timezone: "WITA (UTC+8)",
+        astronomical: "8° LS – 11° LS dan 114° BT – 125° BT",
         borders: [
           "Utara: Laut Bali, Laut Flores, dan Pulau Sulawesi",
           "Selatan: Samudra Hindia dan Benua Australia",
           "Barat: Selat Bali dan Pulau Jawa",
           "Timur: Timor Leste dan Laut Timor"
         ],
-        landscape: "Rangkaian kepulauan vulkanik yang dipisahkan selat-selat sempit berarus deras (Selat Lombok, Selat Alas, Selat Sape), memiliki gunung api ikonik (Agung, Rinjani, Tambora, Kelimutu) serta perbukitan kapur/karst di Sumba dan Timor.",
-        resources: "Dipengaruhi kuat oleh Angin Muson Timur yang kering dari Australia sehingga memiliki musim kemarau lebih panjang dan bioma sabana tropis. Potensi unggulan berupa pariwisata bahari dan budaya, peternakan (sapi/kuda), serta cendana."
+        landscape: "Rangkaian kepulauan vulkanik yang dipisahkan selat-selat sempit berarus deras (Selat Lombok, Alas, Sape), memiliki gunung api ikonik (Agung, Rinjani, Tambora, Kelimutu) serta perbukitan kapur/karst di Sumba dan Timor.",
+        resources: "Dipengaruhi kuat oleh Angin Muson Timur yang kering dari Australia sehingga memiliki musim kemarau lebih panjang dan bioma sabana tropis. Potensi unggulan berupa pariwisata bahari dan budaya, peternakan, serta cendana.",
+        provinces: [
+          { num: 17, name: "Bali", capital: "Denpasar", tz: "WITA", x: 436, y: 366, info: "Terkenal dengan Gunung Agung, Danau Batur, sistem irigasi subak, dan destinasi pariwisata budaya dunia." },
+          { num: 18, name: "Nusa Tenggara Barat", capital: "Mataram", tz: "WITA", x: 472, y: 370, info: "Terdiri dari Pulau Lombok (Gunung Rinjani) dan Pulau Sumbawa (Gunung Tambora) yang dipisahkan Selat Alas." },
+          { num: 19, name: "Nusa Tenggara Timur", capital: "Kupang", tz: "WITA", x: 596, y: 396, info: "Wilayah kepulauan (Flores, Sumba, Timor, Alor, Rote) dengan Taman Nasional Komodo, Danau Kelimutu, dan titik paling selatan RI (Pulau Rote)." }
+        ]
+      },
+      kalimantan: {
+        name: "Pulau Kalimantan",
+        shortName: "Kalimantan",
+        badgeColor: "#0369a1",
+        timezone: "WIB & WITA",
+        astronomical: "4° LU – 4° LS dan 108° BT – 119° BT",
+        borders: [
+          "Utara: Malaysia Timur (Sarawak & Sabah), Brunei Darussalam, dan Laut Tiongkok Selatan",
+          "Selatan: Laut Jawa dan Pulau Jawa",
+          "Barat: Selat Karimata dan Pulau Sumatera",
+          "Timur: Selat Makassar dan Pulau Sulawesi"
+        ],
+        landscape: "Relatif stabil secara tektonik (berada di atas Paparan Sunda dan minim gunung api aktif) dengan dataran rendah luas, Pegunungan Muller-Schwaner di tengah, serta jaringan sungai besar seperti Kapuas, Mahakam, dan Barito.",
+        resources: "Dilalui garis Khatulistiwa (Pontianak) dengan curah hujan merata sepanjang tahun. Merupakan paru-paru dunia dengan hutan hujan tropis lebat serta cadangan batu bara, minyak bumi, gas alam, dan bauksit terbesar di Indonesia.",
+        provinces: [
+          { num: 20, name: "Kalimantan Barat", capital: "Pontianak", tz: "WIB", x: 342, y: 206, info: "Dilalui langsung oleh Garis Khatulistiwa (0°) dan dialiri Sungai Kapuas (sungai terpanjang di Indonesia, 1.143 km)." },
+          { num: 21, name: "Kalimantan Tengah", capital: "Palangka Raya", tz: "WIB", x: 406, y: 238, info: "Memiliki hutan hujan tropis dan lahan gambut luas serta Taman Nasional Tanjung Puting (habitat orangutan)." },
+          { num: 22, name: "Kalimantan Selatan", capital: "Banjarbaru", tz: "WITA", x: 454, y: 264, info: "Beribu kota di Banjarbaru, dialiri Sungai Barito, Pegunungan Meratus, dan kaya tambang batu bara serta intan." },
+          { num: 23, name: "Kalimantan Timur", capital: "Samarinda", tz: "WITA", x: 482, y: 212, info: "Dialiri Sungai Mahakam, kaya minyak bumi, gas alam, batu bara, serta lokasi Ibu Kota Nusantara (IKN)." },
+          { num: 24, name: "Kalimantan Utara", capital: "Tanjung Selor", tz: "WITA", x: 490, y: 158, info: "Provinsi termuda di Kalimantan yang berbatasan darat langsung dengan Sabah dan Sarawak (Malaysia)." }
+        ]
+      },
+      sulawesi: {
+        name: "Pulau Sulawesi",
+        shortName: "Sulawesi",
+        badgeColor: "#6d28d9",
+        timezone: "WITA (UTC+8)",
+        astronomical: "2° LU – 6° LS dan 118° BT – 125° BT",
+        borders: [
+          "Utara: Laut Sulawesi dan Filipina",
+          "Selatan: Laut Flores dan Nusa Tenggara",
+          "Barat: Selat Makassar dan Pulau Kalimantan",
+          "Timur: Laut Maluku dan Kepulauan Maluku"
+        ],
+        landscape: "Memiliki bentuk khas menyerupai huruf 'K' akibat tumbukan tiga lempeng tektonik. Topografinya didominasi pegunungan terjal, lembah patahan (Sesar Palu-Koro), danau tektonik dalam (Poso, Matano, Towuti), serta gunung api aktif di lengan utara.",
+        resources: "Merupakan zona peralihan flora-fauna (Garis Wallace & Weber) dengan satwa endemik unik (anoa, babirusa, maleo). Kaya sumber daya mineral nikel (Morowali, Sorowako), aspal alam (Buton), serta perikanan laut.",
+        provinces: [
+          { num: 25, name: "Sulawesi Utara", capital: "Manado", tz: "WITA", x: 622, y: 168, info: "Terletak di ujung utara lengan Sulawesi, memiliki deretan gunung api aktif (Lokon, Soputan) dan Taman Laut Bunaken." },
+          { num: 26, name: "Gorontalo", capital: "Gorontalo", tz: "WITA", x: 582, y: 188, info: "Membentang di bagian tengah lengan utara Sulawesi antara Laut Sulawesi di utara dan Teluk Tomini di selatan." },
+          { num: 27, name: "Sulawesi Tengah", capital: "Palu", tz: "WITA", x: 548, y: 216, info: "Provinsi terluas di Sulawesi dengan Danau Poso, Teluk Tomini, dan kawasan industri nikel Morowali." },
+          { num: 28, name: "Sulawesi Barat", capital: "Mamuju", tz: "WITA", x: 518, y: 248, info: "Terletak di pesisir barat Sulawesi menghadap langsung ke Selat Makassar dengan potensi kakao dan perikanan." },
+          { num: 29, name: "Sulawesi Selatan", capital: "Makassar", tz: "WITA", x: 530, y: 294, info: "Pusat penghubung transportasi Indonesia Timur, memiliki Pegunungan Latimojong, Danau Tempe, dan bentang karst Maros." },
+          { num: 30, name: "Sulawesi Tenggara", capital: "Kendari", tz: "WITA", x: 578, y: 286, info: "Mencakup lengan tenggara Sulawesi serta Pulau Buton, Muna, dan Taman Nasional Laut Wakatobi." }
+        ]
       },
       maluku: {
         name: "Kepulauan Maluku",
+        shortName: "Kepulauan Maluku",
+        badgeColor: "#0f766e",
         timezone: "WIT (UTC+9)",
+        astronomical: "3° LU – 8° LS dan 124° BT – 135° BT",
         borders: [
           "Utara: Samudra Pasifik dan Laut Filipina",
           "Selatan: Laut Arafura dan Laut Timor",
@@ -1291,11 +1602,18 @@
           "Timur: Laut Seram dan Pulau Papua"
         ],
         landscape: "Wilayah kepulauan (archipelago) dengan ribuan pulau besar dan kecil (Halmahera, Seram, Buru, Ambon, Kei, Aru, Tanimbar) yang dikelilingi laut dalam seperti Laut Banda, serta jalur gunung api Busur Banda dan Halmahera.",
-        resources: "Beriklim tropis kepulauan yang dipengaruhi angin laut. Terkenal sejak abad ke-15 sebagai 'Kepulauan Rempah-Rempah' (cengkih dan pala), serta memiliki potensi perikanan tangkap (tuna, cakalang) dan tambang nikel serta emas."
+        resources: "Beriklim tropis kepulauan yang dipengaruhi angin laut. Terkenal sejak abad ke-15 sebagai 'Kepulauan Rempah-Rempah' (cengkih dan pala), serta memiliki potensi perikanan tangkap (tuna, cakalang) dan tambang nikel serta emas.",
+        provinces: [
+          { num: 31, name: "Maluku Utara", capital: "Sofifi", tz: "WIT", x: 680, y: 178, info: "Beribu kota di Sofifi (Pulau Halmahera), mencakup Ternate dan Tidore dengan kekayaan nikel serta gunung api Gamalama." },
+          { num: 32, name: "Maluku", capital: "Ambon", tz: "WIT", x: 700, y: 264, info: "Mencakup Pulau Ambon, Seram, Buru, Banda, Kei, Aru, dan Tanimbar; terkenal sebagai Kepulauan Rempah dan lumbung ikan nasional." }
+        ]
       },
       papua: {
         name: "Pulau Papua",
+        shortName: "Papua",
+        badgeColor: "#be185d",
         timezone: "WIT (UTC+9)",
+        astronomical: "0° LS – 9° LS dan 130° BT – 141° BT",
         borders: [
           "Utara: Samudra Pasifik",
           "Selatan: Laut Arafura dan Benua Australia",
@@ -1303,7 +1621,15 @@
           "Timur: Negara Papua Nugini (Garis Batas 141° BT)"
         ],
         landscape: "Memiliki bentang alam paling kontras di Indonesia: pegunungan lipatan tinggi (Pegunungan Sudirman & Jayawijaya) dengan puncak bersalju abadi (Puncak Jaya 4.884 mdpl), lembah subur (Lembah Baliem), dan dataran rawa luas di selatan (Sungai Mamberamo & Digul).",
-        resources: "Keanekaragaman hayati tipe Australis (burung cenderawasih, kasuari, kanguru pohon), hutan hujan tropis terluas di Indonesia, serta cadangan tambang tembaga dan emas kelas dunia (Grasberg) dan gas alam."
+        resources: "Keanekaragaman hayati tipe Australis (burung cenderawasih, kasuari, kanguru pohon), hutan hujan tropis terluas di Indonesia, serta cadangan tambang tembaga dan emas kelas dunia dan gas alam.",
+        provinces: [
+          { num: 33, name: "Papua Barat Daya", capital: "Sorong", tz: "WIT", x: 746, y: 222, info: "Terletak di ujung barat laut Kepala Burung Papua, terkenal dengan kawasan wisata bahari kelas dunia Kepulauan Raja Ampat." },
+          { num: 34, name: "Papua Barat", capital: "Manokwari", tz: "WIT", x: 784, y: 224, info: "Mencakup bagian timur Kepala Burung dan Teluk Cenderawasih, dengan Pegunungan Arfak dan teluk gas alam Bintuni." },
+          { num: 35, name: "Papua Tengah", capital: "Nabire", tz: "WIT", x: 826, y: 268, info: "Membentang dari pesisir Teluk Cenderawasih (Nabire) hingga Pegunungan Sudirman (Puncak Jaya dan tambang Grasberg Mimika)." },
+          { num: 36, name: "Papua", capital: "Jayapura", tz: "WIT", x: 912, y: 252, info: "Terletak di pesisir utara Papua berbatasan langsung dengan Papua Nugini (Skouw) dan Samudra Pasifik, memiliki Danau Sentani." },
+          { num: 37, name: "Papua Pegunungan", capital: "Jayawijaya (Wamena)", tz: "WIT", x: 888, y: 292, info: "Satu-satunya provinsi terkurung daratan (landlocked) di Indonesia yang berpusat di Lembah Baliem, Pegunungan Jayawijaya." },
+          { num: 38, name: "Papua Selatan", capital: "Merauke", tz: "WIT", x: 904, y: 354, info: "Provinsi paling timur di bagian selatan Indonesia (Merauke), didominasi dataran rendah luas, Sungai Digul, dan Taman Nasional Wasur." }
+        ]
       }
     };
 
@@ -1315,14 +1641,14 @@
         tag: "KARAKTERISTIK PETA KONVENSIONAL",
         switchText: "Beralih ke Peta Digital →",
         pros: "Mudah dipahami untuk pembelajaran konsep dasar kartografi, tidak bergantung pada daya listrik maupun koneksi internet, dan menampilkan tata letak unsur peta (judul, skala batang, mawar angin, legenda) secara utuh.",
-        cons: "Bersifat statis (skala tidak dapat diperbesar), tidak dapat menampilkan informasi berlapis (layer) secara selektif, serta memerlukan pencetakan ulang apabila terjadi pembaruan data geografis.",
+        cons: "Bersifat statis (skala tidak dapat diperbesar), tidak dapat menampilkan informasi berlapis (layer) secara selektif, serta memerlukan pencetakan ulang apabila terjadi pembaruan data pemekaran provinsi.",
         examples: "Atlas Geografi Indonesia, Peta Dinding Ruang Kelas, Peta Topografi Cetak, Globe.",
         howToRead: "Perhatikan judul peta, baca garis lintang dan bujur di tepi bingkai untuk menentukan lokasi absolut, gunakan mawar angin sebagai orientasi arah utara, dan cocokkan simbol warna/garis dengan kotak legenda."
       },
       digital: {
         tag: "KARAKTERISTIK PETA DIGITAL (WEBGIS)",
         switchText: "Beralih ke Konvensional →",
-        pros: "Interaktif dengan skala dinamis (Zoom In/Out), mampu menumpuk berbagai lapisan informasi spasial (zona waktu, angin muson, lempeng tektonik) secara real-time, serta menampilkan koordinat kursor secara presisi.",
+        pros: "Interaktif dengan skala dinamis (Zoom In/Out), mampu menumpuk berbagai lapisan informasi spasial (batas 38 provinsi, zona waktu, angin muson, lempeng tektonik) secara real-time, serta menampilkan koordinat kursor secara presisi.",
         cons: "Membutuhkan perangkat elektronik (komputer/gawai) serta sumber daya listrik atau jaringan internet untuk mengakses pembaruan data spasial.",
         examples: "Ina-Geoportal (BIG), Google Maps, BMKG WebGIS, ArcGIS Online, QGIS.",
         howToRead: "Gunakan tombol Zoom (+/-) atau geser peta untuk memperjelas detail wilayah, aktifkan kotak centang Layer Informasi sesuai topik analisis, dan pantau pembacaan koordinat Lintang/Bujur pada panel HUD."
@@ -1330,11 +1656,16 @@
     };
 
     /* =========================================================================
-       3. STATE APLIKASI & NAVIGASI TAB UTAMA
+       3. STATE APLIKASI & NAVIGASI 4 TAB UTAMA
        ========================================================================= */
     let currentMainTab = 1;
     let currentMapMode = "konvensional"; // 'konvensional' | 'digital'
     let currentSelectedIsland = "sumatra";
+    let currentSelectedProvinceNum = 1;
+
+    // State Filter & Pencarian Tab 2 (38 Provinsi)
+    let activeIslandFilter = "all";
+    let activeProvinceSearch = "";
 
     // State Zoom & Pan pada Mode Peta Digital
     let mapZoom = 1;
@@ -1346,26 +1677,120 @@
 
     function switchMainTab(tabNumber) {
       currentMainTab = tabNumber;
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 4; i++) {
         const contentEl = document.getElementById(`tab-content-${i}`);
         const btnEl = document.getElementById(`tab-btn-${i}`);
         const badgeEl = btnEl.querySelector("span:first-child");
 
         if (i === tabNumber) {
           contentEl.classList.remove("hidden");
-          btnEl.className = "tab-btn flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all shadow-sm bg-amber-400 text-ocean-950 ring-2 ring-amber-200";
-          badgeEl.className = "w-6 h-6 rounded-full bg-ocean-950 text-amber-300 text-xs flex items-center justify-center font-extrabold";
+          btnEl.className = "tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-sm bg-amber-400 text-ocean-950 ring-2 ring-amber-200";
+          badgeEl.className = "w-6 h-6 rounded-full bg-ocean-950 text-amber-300 text-xs flex items-center justify-center font-extrabold flex-shrink-0";
         } else {
           contentEl.classList.add("hidden");
-          btnEl.className = "tab-btn flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60";
-          badgeEl.className = "w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold";
+          btnEl.className = "tab-btn flex items-center justify-center gap-2 px-3.5 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all bg-ocean-800/80 text-ocean-100 hover:bg-ocean-700 border border-ocean-600/60";
+          badgeEl.className = "w-6 h-6 rounded-full bg-ocean-950/60 text-ocean-200 text-xs flex items-center justify-center font-extrabold flex-shrink-0";
         }
       }
     }
 
     /* =========================================================================
-       4. LOGIKA PETA INTERAKTIF (MODE KONVENSIONAL VS DIGITAL)
+       4. LOGIKA PENANDA ANGKA (1–38) & PETA INTERAKTIF GANDA
        ========================================================================= */
+    function renderProvinceNumberMarkers() {
+      const badgesGroup = document.getElementById("svg-province-number-badges");
+      const legendGrid = document.getElementById("map-number-legend-grid");
+      if (!badgesGroup) return;
+
+      let svgHtml = "";
+      let legendHtml = "";
+
+      Object.keys(ISLAND_DATA).forEach(islandKey => {
+        const island = ISLAND_DATA[islandKey];
+        island.provinces.forEach((prov, idx) => {
+          const isSelected = prov.num === currentSelectedProvinceNum;
+          const pulseRing = isSelected
+            ? `<circle cx="${prov.x}" cy="${prov.y}" r="12" fill="none" stroke="#facc15" stroke-width="2.5" class="marker-pulse-ring" />`
+            : "";
+
+          svgHtml += `
+            <g
+              id="prov-marker-${prov.num}"
+              class="province-marker ${isSelected ? "province-marker-active" : ""}"
+              onclick="selectProvinceByNumber(${prov.num}, event)"
+            >
+              <title>#${prov.num} ${prov.name} — Ibu Kota: ${prov.capital} (${prov.tz})</title>
+              ${pulseRing}
+              <circle
+                cx="${prov.x}"
+                cy="${prov.y}"
+                r="8.5"
+                fill="${island.badgeColor}"
+                stroke="${isSelected ? "#facc15" : "#ffffff"}"
+                stroke-width="${isSelected ? "2.4" : "1.6"}"
+              />
+              <text
+                x="${prov.x}"
+                y="${prov.y + 3}"
+                font-family="Plus Jakarta Sans, sans-serif"
+                font-size="8.4"
+                font-weight="800"
+                fill="#ffffff"
+                text-anchor="middle"
+                pointer-events="none"
+              >${prov.num}</text>
+            </g>
+          `;
+
+          if (legendGrid) {
+            legendHtml += `
+              <button
+                type="button"
+                id="legend-item-${prov.num}"
+                onclick="selectProvinceByNumber(${prov.num})"
+                class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border text-left transition text-[11px] ${
+                  isSelected
+                    ? "bg-amber-100 border-amber-500 text-ocean-950 font-extrabold shadow-xs"
+                    : "bg-slate-50 hover:bg-ocean-50 border-slate-200 text-slate-700"
+                }"
+              >
+                <span
+                  class="w-5 h-5 rounded-full text-white font-mono text-[10px] font-extrabold flex items-center justify-center flex-shrink-0"
+                  style="background-color: ${island.badgeColor};"
+                >${prov.num}</span>
+                <span class="truncate">${prov.name}</span>
+              </button>
+            `;
+          }
+        });
+      });
+
+      badgesGroup.innerHTML = svgHtml;
+      if (legendGrid) {
+        legendGrid.innerHTML = legendHtml;
+      }
+    }
+
+    function selectProvinceByNumber(provNum, evt) {
+      if (evt && evt.stopPropagation) {
+        evt.stopPropagation();
+      }
+      let foundIslandKey = null;
+      let foundIdx = 0;
+
+      Object.keys(ISLAND_DATA).forEach(key => {
+        const idx = ISLAND_DATA[key].provinces.findIndex(p => p.num === provNum);
+        if (idx !== -1) {
+          foundIslandKey = key;
+          foundIdx = idx;
+        }
+      });
+
+      if (foundIslandKey) {
+        selectIsland(foundIslandKey, foundIdx);
+      }
+    }
+
     function toggleMapMode() {
       setMapMode(currentMapMode === "konvensional" ? "digital" : "konvensional");
     }
@@ -1396,6 +1821,8 @@
       const svgBgBase = document.getElementById("svg-bg-base");
       const svgBgTex = document.getElementById("svg-bg-texture");
       const staticElem = document.getElementById("conventional-static-elements");
+      const islandsLayer = document.getElementById("indonesia-islands");
+      const provMarkersLayer = document.getElementById("province-markers-layer");
       const graticuleLayer = document.getElementById("graticule-layer");
       const graticuleLabels = document.getElementById("graticule-labels");
       const labelAsia = document.getElementById("label-asia");
@@ -1403,31 +1830,31 @@
       const labelHindia = document.getElementById("label-hindia");
       const labelPasifik = document.getElementById("label-pasifik");
 
-      // Toolbar & HUD Digital
-      const zoomToolbar = document.getElementById("digital-zoom-toolbar");
+      // HUD Digital
       const coordHud = document.getElementById("digital-coord-hud");
 
       // Pengatur Layer
       const layerBox = document.getElementById("layer-control-box");
       const layerDot = document.getElementById("layer-status-dot");
       const layerLockBadge = document.getElementById("layer-lock-badge");
-      const layerKeys = ["timezone", "monsoon", "tectonic"];
+      const layerKeys = ["islands", "provinces", "graticule", "timezone", "monsoon", "tectonic"];
 
       if (!isDigital) {
-        // Reset zoom saat kembali ke Peta Konvensional yang statis
-        resetMapView();
-
         frame.className = "relative rounded-2xl overflow-hidden shadow-lg border-4 border-parchment-300 bg-parchment-100 map-transition";
         banner.className = "px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b border-parchment-300 bg-parchment-200/80 text-parchment-900 map-transition";
         badge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wide bg-parchment-800 text-parchment-50";
         badge.textContent = "MODE ATLAS CETAK";
         titleText.className = "font-serif font-bold text-xs sm:text-sm";
-        titleText.textContent = "PETA KEPULAUAN REPUBLIK INDONESIA (ATLAS KONVENSIONAL)";
-        hintText.textContent = "Skala statis • Klik pulau untuk detail wilayah";
+        titleText.textContent = "PETA KEPULAUAN REPUBLIK INDONESIA (PROVINSI 1–38)";
+        hintText.textContent = "Klik angka 1–38 atau gunakan tombol +/- untuk memperbesar";
 
         svgBgBase.setAttribute("fill", "#f6efe2");
         svgBgTex.setAttribute("opacity", "0.85");
         staticElem.classList.remove("hidden");
+        islandsLayer.classList.remove("hidden");
+        provMarkersLayer.classList.remove("hidden");
+        graticuleLayer.classList.remove("hidden");
+        graticuleLabels.classList.remove("hidden");
         graticuleLayer.setAttribute("stroke", "#8b7355");
         graticuleLabels.setAttribute("fill", "#5c4d3c");
         labelAsia.setAttribute("fill", "#5c4d3c");
@@ -1435,23 +1862,24 @@
         labelHindia.setAttribute("fill", "#0369a1");
         labelPasifik.setAttribute("fill", "#0369a1");
 
-        zoomToolbar.classList.add("hidden");
         coordHud.classList.add("hidden");
 
-        // Kunci layer SIG pada mode konvensional
         layerBox.className = "bg-slate-100 rounded-2xl border border-slate-200 p-4 transition-all";
         layerDot.className = "w-2.5 h-2.5 rounded-full bg-slate-400";
         layerLockBadge.className = "text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-200";
-        layerLockBadge.textContent = "Terkunci pada Mode Konvensional — Aktifkan Mode Peta Digital untuk membuka layer";
+        layerLockBadge.textContent = "Terkunci pada Mode Konvensional — Aktifkan Peta Digital";
 
         layerKeys.forEach(key => {
           const chk = document.getElementById(`chk-layer-${key}`);
           const lbl = document.getElementById(`lbl-layer-${key}`);
-          const gisLayer = document.getElementById(`gis-layer-${key}`);
           chk.disabled = true;
-          gisLayer.classList.add("hidden");
-          lbl.className = "flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition";
+          lbl.className = "flex items-start gap-2 p-2.5 rounded-xl border border-slate-200 bg-white/60 opacity-60 cursor-not-allowed transition";
+          lbl.querySelector("span:first-child").className = "block text-xs font-bold text-slate-800";
+          lbl.querySelector("span:last-child").className = "block text-[11px] text-slate-500";
         });
+        document.getElementById("gis-layer-timezone").classList.add("hidden");
+        document.getElementById("gis-layer-monsoon").classList.add("hidden");
+        document.getElementById("gis-layer-tectonic").classList.add("hidden");
 
       } else {
         frame.className = "relative rounded-2xl overflow-hidden shadow-xl border-4 border-ocean-800 bg-slate-950 map-transition";
@@ -1459,7 +1887,7 @@
         badge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold uppercase tracking-wide bg-sky-500 text-slate-950";
         badge.textContent = "MODE WEBGIS DIGITAL";
         titleText.className = "font-sans font-bold text-xs sm:text-sm text-white";
-        titleText.textContent = "SISTEM INFORMASI GEOGRAFIS (SIG) KEPULAUAN INDONESIA";
+        titleText.textContent = "SISTEM INFORMASI GEOGRAFIS (SIG) PENANDA PROVINSI 1–38";
         hintText.textContent = "Arahkan kursor untuk koordinat • Seret peta saat diperbesar";
 
         svgBgBase.setAttribute("fill", "url(#digitalOceanGrad)");
@@ -1472,26 +1900,21 @@
         labelHindia.setAttribute("fill", "#38bdf8");
         labelPasifik.setAttribute("fill", "#38bdf8");
 
-        zoomToolbar.classList.remove("hidden");
         coordHud.classList.remove("hidden");
 
-        // Aktifkan pengatur layer SIG pada mode digital
         layerBox.className = "bg-ocean-950 text-white rounded-2xl border border-ocean-700 p-4 shadow-md transition-all";
         layerDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
         layerLockBadge.className = "text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-        layerLockBadge.textContent = "Aktif • Centang untuk menumpuk lapisan data spasial";
+        layerLockBadge.textContent = "Aktif • Centang untuk menumpuk layer SIG";
 
         layerKeys.forEach(key => {
           const chk = document.getElementById(`chk-layer-${key}`);
           const lbl = document.getElementById(`lbl-layer-${key}`);
-          const gisLayer = document.getElementById(`gis-layer-${key}`);
           chk.disabled = false;
-          lbl.className = "flex items-start gap-2.5 p-3 rounded-xl border border-ocean-700 bg-ocean-900/70 hover:bg-ocean-800/80 cursor-pointer transition";
+          lbl.className = "flex items-start gap-2 p-2.5 rounded-xl border border-ocean-700 bg-ocean-900/70 hover:bg-ocean-800/80 cursor-pointer transition";
           lbl.querySelector("span:first-child").className = "block text-xs font-bold text-white";
           lbl.querySelector("span:last-child").className = "block text-[11px] text-sky-200";
-          if (chk.checked) {
-            gisLayer.classList.remove("hidden");
-          }
+          toggleGisLayer(key);
         });
       }
 
@@ -1501,11 +1924,20 @@
     function toggleGisLayer(layerKey) {
       if (currentMapMode !== "digital") return;
       const chk = document.getElementById(`chk-layer-${layerKey}`);
-      const layerEl = document.getElementById(`gis-layer-${layerKey}`);
-      if (chk.checked) {
-        layerEl.classList.remove("hidden");
+      const isChecked = chk.checked;
+
+      if (layerKey === "islands") {
+        document.getElementById("indonesia-islands").classList.toggle("hidden", !isChecked);
+      } else if (layerKey === "provinces") {
+        document.getElementById("province-markers-layer").classList.toggle("hidden", !isChecked);
+      } else if (layerKey === "graticule") {
+        document.getElementById("graticule-layer").classList.toggle("hidden", !isChecked);
+        document.getElementById("graticule-labels").classList.toggle("hidden", !isChecked);
       } else {
-        layerEl.classList.add("hidden");
+        const layerEl = document.getElementById(`gis-layer-${layerKey}`);
+        if (layerEl) {
+          layerEl.classList.toggle("hidden", !isChecked);
+        }
       }
     }
 
@@ -1531,26 +1963,90 @@
     }
 
     /* =========================================================================
-       5. ZOOM, PAN & PEMBACAAN KOORDINAT REAL-TIME PADA PETA DIGITAL
+       5. PENCARIAN CEPAT NOMOR (1–38), PROVINSI, ATAU IBU KOTA PADA TAB 1
+       ========================================================================= */
+    function handleMapQuickSearch(rawQuery) {
+      const resultsBox = document.getElementById("map-search-results");
+      const query = rawQuery.trim().toLowerCase();
+
+      if (!query) {
+        resultsBox.classList.add("hidden");
+        resultsBox.innerHTML = "";
+        return;
+      }
+
+      const matches = [];
+      Object.keys(ISLAND_DATA).forEach(islandKey => {
+        const island = ISLAND_DATA[islandKey];
+        island.provinces.forEach((prov, idx) => {
+          const numStr = String(prov.num);
+          if (
+            numStr === query ||
+            `#${numStr}` === query ||
+            prov.name.toLowerCase().includes(query) ||
+            prov.capital.toLowerCase().includes(query) ||
+            island.name.toLowerCase().includes(query)
+          ) {
+            matches.push({ islandKey, islandName: island.name, badgeColor: island.badgeColor, prov, provIdx: idx });
+          }
+        });
+      });
+
+      if (matches.length === 0) {
+        resultsBox.innerHTML = `<div class="px-4 py-3 text-xs text-slate-500">Tidak ditemukan nomor, provinsi, atau ibu kota yang cocok dengan "<strong>${rawQuery}</strong>".</div>`;
+      } else {
+        resultsBox.innerHTML = matches.slice(0, 12).map(item => `
+          <button
+            type="button"
+            onclick="jumpToProvinceOnMap('${item.islandKey}', ${item.provIdx})"
+            class="w-full text-left px-4 py-2.5 hover:bg-ocean-50 transition flex items-center justify-between gap-2"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full text-white font-mono text-xs font-extrabold flex items-center justify-center flex-shrink-0" style="background-color: ${item.badgeColor};">
+                ${item.prov.num}
+              </span>
+              <div>
+                <span class="font-bold text-xs text-ocean-950 block">${item.prov.name}</span>
+                <span class="text-[11px] text-slate-500">Ibu Kota: <strong class="text-slate-700">${item.prov.capital}</strong> • ${item.islandName}</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-ocean-100 text-ocean-800 font-mono text-[10px] font-bold">${item.prov.tz}</span>
+          </button>
+        `).join("");
+      }
+
+      resultsBox.classList.remove("hidden");
+    }
+
+    function jumpToProvinceOnMap(islandKey, provIdx) {
+      const resultsBox = document.getElementById("map-search-results");
+      const inputEl = document.getElementById("map-search-input");
+      resultsBox.classList.add("hidden");
+      inputEl.value = "";
+      selectIsland(islandKey, provIdx);
+    }
+
+    /* =========================================================================
+       6. ZOOM, PAN & PEMBACAAN KOORDINAT REAL-TIME PADA PETA
        ========================================================================= */
     function applyMapTransform() {
       const group = document.getElementById("map-transform-group");
-      // Batasi geseran (pan) agar peta tidak keluar dari viewport
       const maxPanX = (mapZoom - 1) * 500;
       const maxPanY = (mapZoom - 1) * 250;
       mapPanX = Math.max(-maxPanX, Math.min(maxPanX, mapPanX));
       mapPanY = Math.max(-maxPanY, Math.min(maxPanY, mapPanY));
 
-      // Transformasi terpusat pada titik tengah (500, 250)
       const tx = 500 * (1 - mapZoom) + mapPanX;
       const ty = 250 * (1 - mapZoom) + mapPanY;
       group.setAttribute("transform", `translate(${tx.toFixed(2)}, ${ty.toFixed(2)}) scale(${mapZoom.toFixed(2)})`);
-      document.getElementById("live-zoom-text").textContent = `${mapZoom.toFixed(1)}x`;
+      const zoomHudText = document.getElementById("live-zoom-text");
+      if (zoomHudText) {
+        zoomHudText.textContent = `${mapZoom.toFixed(1)}x`;
+      }
     }
 
     function zoomMap(delta) {
-      if (currentMapMode !== "digital") return;
-      mapZoom = Math.max(1, Math.min(3.5, mapZoom + delta));
+      mapZoom = Math.max(1, Math.min(3.8, mapZoom + delta));
       if (mapZoom === 1) {
         mapPanX = 0;
         mapPanY = 0;
@@ -1573,17 +2069,14 @@
         const rect = svg.getBoundingClientRect();
         if (rect.width === 0 || rect.height === 0) return;
 
-        // Posisi layar dalam koordinat viewBox 0..1000 dan 0..500
         const viewX = ((clientX - rect.left) / rect.width) * 1000;
         const viewY = ((clientY - rect.top) / rect.height) * 500;
 
-        // Balikkan transformasi zoom & pan untuk mendapatkan koordinat peta asli
         const tx = 500 * (1 - mapZoom) + mapPanX;
         const ty = 250 * (1 - mapZoom) + mapPanY;
         const mapX = (viewX - tx) / mapZoom;
         const mapY = (viewY - ty) / mapZoom;
 
-        // Konversi ke Bujur (92° BT s.d. 145° BT) dan Lintang (10° LU s.d. 15° LS)
         const lon = 92 + (mapX / 1000) * 53;
         const lat = 10 - (mapY / 500) * 25;
 
@@ -1594,7 +2087,7 @@
 
       svg.addEventListener("mousemove", (e) => {
         updateCoordinatesFromEvent(e.clientX, e.clientY);
-        if (isDraggingMap && currentMapMode === "digital" && mapZoom > 1) {
+        if (isDraggingMap && mapZoom > 1) {
           const rect = svg.getBoundingClientRect();
           const scaleX = 1000 / rect.width;
           const scaleY = 500 / rect.height;
@@ -1607,7 +2100,7 @@
       });
 
       svg.addEventListener("mousedown", (e) => {
-        if (currentMapMode === "digital" && mapZoom > 1) {
+        if (mapZoom > 1) {
           isDraggingMap = true;
           dragStartX = e.clientX;
           dragStartY = e.clientY;
@@ -1618,12 +2111,11 @@
         isDraggingMap = false;
       });
 
-      // Dukungan sentuhan (Touch) untuk perangkat layar sentuh / ponsel
       svg.addEventListener("touchstart", (e) => {
         if (e.touches.length === 1) {
           const touch = e.touches[0];
           updateCoordinatesFromEvent(touch.clientX, touch.clientY);
-          if (currentMapMode === "digital" && mapZoom > 1) {
+          if (mapZoom > 1) {
             isDraggingMap = true;
             dragStartX = touch.clientX;
             dragStartY = touch.clientY;
@@ -1635,7 +2127,7 @@
         if (e.touches.length === 1) {
           const touch = e.touches[0];
           updateCoordinatesFromEvent(touch.clientX, touch.clientY);
-          if (isDraggingMap && currentMapMode === "digital" && mapZoom > 1) {
+          if (isDraggingMap && mapZoom > 1) {
             const rect = svg.getBoundingClientRect();
             const scaleX = 1000 / rect.width;
             const scaleY = 500 / rect.height;
@@ -1654,14 +2146,16 @@
     }
 
     /* =========================================================================
-       6. INTERAKTIVITAS KLIK WILAYAH PULAU
+       7. INTERAKTIVITAS PANEL INSPEKTUR WILAYAH & SINKRONISASI NOMOR 1–38
        ========================================================================= */
-    function selectIsland(regionKey) {
+    function selectIsland(regionKey, provIdx = 0) {
       currentSelectedIsland = regionKey;
       const data = ISLAND_DATA[regionKey];
       if (!data) return;
 
-      // Hapus highlight pulau sebelumnya & tambahkan pada pulau terpilih
+      const selectedProv = data.provinces[provIdx] || data.provinces[0];
+      currentSelectedProvinceNum = selectedProv.num;
+
       document.querySelectorAll(".island-region").forEach(el => {
         el.classList.remove("island-selected");
       });
@@ -1670,12 +2164,14 @@
         targetEl.classList.add("island-selected");
       }
 
-      // Sinkronkan dropdown
       document.getElementById("quick-island-select").value = regionKey;
 
-      // Perbarui panel profil geografis
       document.getElementById("island-name").textContent = data.name;
       document.getElementById("island-tz-badge").textContent = data.timezone;
+      const firstNum = data.provinces[0].num;
+      const lastNum = data.provinces[data.provinces.length - 1].num;
+      document.getElementById("island-prov-count-badge").textContent = `No. ${firstNum}–${lastNum} (${data.provinces.length} Provinsi)`;
+      document.getElementById("island-astro").textContent = data.astronomical;
       document.getElementById("island-landscape").textContent = data.landscape;
       document.getElementById("island-resources").textContent = data.resources;
 
@@ -1683,12 +2179,216 @@
       bordersList.innerHTML = data.borders
         .map(b => `<li class="flex items-start gap-1.5"><span class="text-ocean-600 font-bold">•</span><span>${b}</span></li>`)
         .join("");
+
+      renderProvinceNumberMarkers();
+      renderInspectorProvinces(regionKey, provIdx);
+    }
+
+    function renderInspectorProvinces(regionKey, activeIdx) {
+      const data = ISLAND_DATA[regionKey];
+      const grid = document.getElementById("island-provinces-grid");
+
+      grid.innerHTML = data.provinces.map((prov, idx) => {
+        const isSelected = idx === activeIdx;
+        return `
+          <button
+            type="button"
+            onclick="selectProvinceInInspector('${regionKey}', ${idx})"
+            class="text-left p-2 rounded-xl border transition-all flex items-start gap-2 ${
+              isSelected
+                ? "bg-ocean-900 text-white border-ocean-950 shadow-sm ring-2 ring-amber-400"
+                : "bg-white hover:bg-ocean-100/60 text-slate-800 border-slate-200"
+            }"
+          >
+            <span
+              class="w-6 h-6 rounded-full text-white font-mono text-[11px] font-extrabold flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs"
+              style="background-color: ${data.badgeColor};"
+            >${prov.num}</span>
+            <div class="min-w-0">
+              <span class="block text-[11px] font-extrabold leading-tight truncate">${prov.name}</span>
+              <span class="block text-[10px] mt-0.5 truncate ${isSelected ? "text-amber-300 font-semibold" : "text-slate-500"}">
+                Ibu Kota: ${prov.capital}
+              </span>
+            </div>
+          </button>
+        `;
+      }).join("");
+
+      const selectedProv = data.provinces[activeIdx] || data.provinces[0];
+      const numBadge = document.getElementById("spotlight-prov-num");
+      numBadge.textContent = `#${selectedProv.num}`;
+      numBadge.style.backgroundColor = data.badgeColor;
+
+      document.getElementById("spotlight-prov-name").textContent = selectedProv.name;
+      document.getElementById("spotlight-prov-tz").textContent = `${selectedProv.tz} (${data.timezone.split(" ")[1] || "UTC"})`;
+      document.getElementById("spotlight-prov-capital").textContent = `Ibu Kota: ${selectedProv.capital}`;
+      document.getElementById("spotlight-prov-island").textContent = data.name;
+      document.getElementById("spotlight-prov-desc").textContent = selectedProv.info;
+    }
+
+    function selectProvinceInInspector(regionKey, provIdx) {
+      const data = ISLAND_DATA[regionKey];
+      const selectedProv = data.provinces[provIdx] || data.provinces[0];
+      currentSelectedProvinceNum = selectedProv.num;
+      renderProvinceNumberMarkers();
+      renderInspectorProvinces(regionKey, provIdx);
     }
 
     /* =========================================================================
-       7. SIMULATOR ZONA WAKTU (TAB 2 BAGIAN A)
+       8. LOGIKA TAB 2: EKSPLORASI DAFTAR LENGKAP 38 PROVINSI & FILTER PULAU
        ========================================================================= */
-    function formatMinutesToHHMM(totalMinutes) {
+    function filterProvincesByIsland(islandKey) {
+      activeIslandFilter = islandKey;
+
+      // Perbarui gaya tombol filter
+      document.querySelectorAll(".island-filter-btn").forEach(btn => {
+        if (btn.dataset.filter === islandKey) {
+          btn.className = "island-filter-btn px-3.5 py-2 rounded-xl text-xs font-extrabold transition bg-ocean-800 text-white shadow-sm";
+        } else {
+          btn.className = "island-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-700 border border-slate-300 hover:bg-ocean-50";
+        }
+      });
+
+      renderProvinceExplorer();
+    }
+
+    function searchProvincesList(query) {
+      activeProvinceSearch = query.trim().toLowerCase();
+      const clearBtn = document.getElementById("clear-search-btn");
+      if (activeProvinceSearch.length > 0) {
+        clearBtn.classList.remove("hidden");
+      } else {
+        clearBtn.classList.add("hidden");
+      }
+      renderProvinceExplorer();
+    }
+
+    function clearProvinceSearch() {
+      const inputEl = document.getElementById("province-search-input");
+      inputEl.value = "";
+      searchProvincesList("");
+    }
+
+    function inspectProvinceFromTab2(islandKey, provIdx) {
+      switchMainTab(1);
+      selectIsland(islandKey, provIdx);
+      document.getElementById("tab-content-1").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderProvinceExplorer() {
+      const container = document.getElementById("provinces-explorer-container");
+      const summaryEl = document.getElementById("province-filter-summary");
+
+      const islandKeys = Object.keys(ISLAND_DATA);
+      let totalMatchedProvinces = 0;
+      let cardsHtml = "";
+
+      islandKeys.forEach(key => {
+        if (activeIslandFilter !== "all" && activeIslandFilter !== key) return;
+
+        const island = ISLAND_DATA[key];
+        const islandMatchesQuery = activeProvinceSearch && (
+          island.name.toLowerCase().includes(activeProvinceSearch) ||
+          island.shortName.toLowerCase().includes(activeProvinceSearch)
+        );
+
+        // Filter provinsi berdasarkan pencarian (nomor, nama provinsi, atau ibu kota)
+        const matchedProvinces = island.provinces
+          .map((prov, originalIdx) => ({ ...prov, originalIdx }))
+          .filter(prov => {
+            if (!activeProvinceSearch) return true;
+            return (
+              String(prov.num) === activeProvinceSearch ||
+              islandMatchesQuery ||
+              prov.name.toLowerCase().includes(activeProvinceSearch) ||
+              prov.capital.toLowerCase().includes(activeProvinceSearch)
+            );
+          });
+
+        if (matchedProvinces.length === 0) return;
+
+        totalMatchedProvinces += matchedProvinces.length;
+
+        const provinceRowsHtml = matchedProvinces.map(prov => `
+          <div class="p-3.5 rounded-xl bg-slate-50 hover:bg-ocean-50/70 border border-slate-200 transition flex flex-col justify-between gap-2.5">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span
+                    class="w-7 h-7 rounded-full text-white font-mono text-xs font-extrabold flex items-center justify-center flex-shrink-0 shadow-xs"
+                    style="background-color: ${island.badgeColor};"
+                  >${prov.num}</span>
+                  <div>
+                    <h4 class="font-extrabold text-sm text-ocean-950 leading-snug">${prov.name}</h4>
+                    <span class="text-xs font-semibold text-archipelago-800">
+                      <i class="fa-solid fa-landmark-flag text-[10px] mr-1"></i>Ibu Kota: ${prov.capital}
+                    </span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-ocean-100 text-ocean-900 font-mono text-[10px] font-bold flex-shrink-0">
+                  ${prov.tz}
+                </span>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">${prov.info}</p>
+            </div>
+            <div class="pt-2 border-t border-slate-200/80 flex justify-end">
+              <button
+                type="button"
+                onclick="inspectProvinceFromTab2('${key}', ${prov.originalIdx})"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ocean-800 hover:bg-ocean-700 text-white text-[11px] font-bold transition shadow-xs"
+              >
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Lihat Angka #${prov.num} di Peta</span>
+              </button>
+            </div>
+          </div>
+        `).join("");
+
+        cardsHtml += `
+          <article class="rounded-2xl border-2 border-slate-200 bg-white overflow-hidden shadow-xs">
+            <div class="px-5 py-3.5 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3.5 h-3.5 rounded-full flex-shrink-0" style="background-color: ${island.badgeColor};"></span>
+                <h3 class="text-base sm:text-lg font-extrabold text-ocean-950">${island.name}</h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-white border border-slate-300 text-xs font-bold text-slate-700">
+                  ${matchedProvinces.length} Provinsi
+                </span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded-lg bg-ocean-900 text-amber-300 font-bold">${island.timezone}</span>
+                <span class="text-slate-600 font-semibold">${island.astronomical}</span>
+              </div>
+            </div>
+            <div class="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              ${provinceRowsHtml}
+            </div>
+          </article>
+        `;
+      });
+
+      if (totalMatchedProvinces === 0) {
+        cardsHtml = `
+          <div class="rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-8 text-center space-y-3">
+            <p class="text-sm font-bold text-slate-700">Tidak ada provinsi atau ibu kota yang sesuai dengan filter pencarian Anda.</p>
+            <button
+              type="button"
+              onclick="filterProvincesByIsland('all'); clearProvinceSearch();"
+              class="px-4 py-2 rounded-xl bg-ocean-800 hover:bg-ocean-700 text-white text-xs font-bold transition"
+            >
+              Tampilkan Seluruh 38 Provinsi
+            </button>
+          </div>
+        `;
+      }
+
+      container.innerHTML = cardsHtml;
+      summaryEl.textContent = `Menampilkan ${totalMatchedProvinces} dari 38 Provinsi`;
+    }
+
+    /* =========================================================================
+       9. LOGIKA TAB 3: SIMULASI ZONA WAKTU & ANGIN MUSON
+       ========================================================================= */
+    function formatClockTime(totalMinutes) {
       const normalized = ((totalMinutes % 1440) + 1440) % 1440;
       const hours = Math.floor(normalized / 60);
       const mins = normalized % 60;
@@ -1698,269 +2398,284 @@
     function getDayPeriodLabel(totalMinutes) {
       const normalized = ((totalMinutes % 1440) + 1440) % 1440;
       const hour = Math.floor(normalized / 60);
-      if (hour >= 4 && hour < 11) return "🌅 Pagi Hari";
+      if (hour >= 0 && hour < 5) return "🌙 Dini Hari";
+      if (hour >= 5 && hour < 11) return "🌅 Pagi Hari";
       if (hour >= 11 && hour < 15) return "☀️ Siang Hari";
       if (hour >= 15 && hour < 18) return "🌇 Sore Hari";
-      return "🌙 Malam Hari";
+      return "🌃 Malam Hari";
     }
 
-    function setWibMinutes(mins) {
+    function updateTimeZoneSimulator(rawMinutes) {
+      const wibTotal = parseInt(rawMinutes, 10) || 0;
+      const witaTotal = wibTotal + 60;
+      const witTotal = wibTotal + 120;
+
+      document.getElementById("clock-wib").textContent = formatClockTime(wibTotal);
+      document.getElementById("clock-wita").textContent = formatClockTime(witaTotal);
+      document.getElementById("clock-wit").textContent = formatClockTime(witTotal);
+
+      document.getElementById("wib-period-badge").textContent = getDayPeriodLabel(wibTotal);
+      document.getElementById("wita-period-badge").textContent = getDayPeriodLabel(witaTotal);
+      document.getElementById("wit-period-badge").textContent = getDayPeriodLabel(witTotal);
+    }
+
+    function setWibMinutes(minutes) {
       const slider = document.getElementById("wib-time-slider");
-      slider.value = mins;
-      updateTimeZoneSimulator(mins);
+      if (slider) {
+        slider.value = minutes;
+      }
+      updateTimeZoneSimulator(minutes);
     }
 
-    function updateTimeZoneSimulator(wibMinutesStr) {
-      const wibMins = parseInt(wibMinutesStr, 10);
-      const witaMins = wibMins + 60;
-      const witMins = wibMins + 120;
-
-      document.getElementById("clock-wib").textContent = formatMinutesToHHMM(wibMins);
-      document.getElementById("clock-wita").textContent = formatMinutesToHHMM(witaMins);
-      document.getElementById("clock-wit").textContent = formatMinutesToHHMM(witMins);
-
-      document.getElementById("wib-period-badge").textContent = getDayPeriodLabel(wibMins);
-      document.getElementById("wita-period-badge").textContent = getDayPeriodLabel(witaMins);
-      document.getElementById("wit-period-badge").textContent = getDayPeriodLabel(witMins);
-    }
-
-    /* =========================================================================
-       8. SIMULATOR ANGIN MUSON (TAB 2 BAGIAN B)
-       ========================================================================= */
-    function setMonsoonMode(type) {
+    function setMonsoonMode(mode) {
+      const isBarat = mode === "barat";
       const btnBarat = document.getElementById("btn-muson-barat");
       const btnTimur = document.getElementById("btn-muson-timur");
-
-      const asiaSeason = document.getElementById("sim-asia-season");
-      const asiaPressure = document.getElementById("sim-asia-pressure");
-      const ausSeason = document.getElementById("sim-aus-season");
-      const ausPressure = document.getElementById("sim-aus-pressure");
-      const indoWeather = document.getElementById("sim-indo-weather");
-
       const arrowsBarat = document.getElementById("sim-arrows-barat");
       const arrowsTimur = document.getElementById("sim-arrows-timur");
 
-      const badge = document.getElementById("monsoon-badge");
-      const title = document.getElementById("monsoon-title");
-      const desc = document.getElementById("monsoon-desc");
-      const impact = document.getElementById("monsoon-impact");
-
-      if (type === "barat") {
+      if (isBarat) {
         btnBarat.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-ocean-700 text-white shadow";
         btnTimur.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100";
-
-        asiaSeason.textContent = "Musim Dingin (Suhu Rendah)";
-        asiaPressure.textContent = "TEKANAN TINGGI (MAKSIMUM)";
-        ausSeason.textContent = "Musim Panas (Suhu Tinggi)";
-        ausPressure.textContent = "TEKANAN RENDAH (MINIMUM)";
-        indoWeather.textContent = "🌧️ Sebagian Besar Wilayah Musim Hujan";
-
         arrowsBarat.classList.remove("hidden");
         arrowsTimur.classList.add("hidden");
 
-        badge.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-900 text-xs font-extrabold";
-        badge.textContent = "PERIODE OKTOBER – APRIL";
-        title.textContent = "Angin Muson Barat → Musim Hujan";
-        desc.innerHTML = "Pada bulan Oktober hingga April, matahari berada di belahan bumi selatan. Benua Australia mengalami musim panas (tekanan udara rendah), sedangkan Benua Asia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari Asia menuju Australia melewati samudra luas sehingga membawa banyak uap air dan menyebabkan <strong>musim hujan</strong> di sebagian besar wilayah Indonesia.";
-        impact.textContent = "Petani mulai mengolah lahan sawah tadah hujan, namun masyarakat perlu mewaspadai potensi banjir dan tanah longsor.";
+        document.getElementById("sim-asia-season").textContent = "Musim Dingin (Suhu Rendah)";
+        document.getElementById("sim-asia-pressure").textContent = "TEKANAN TINGGI (MAKSIMUM)";
+        document.getElementById("sim-aus-season").textContent = "Musim Panas (Suhu Tinggi)";
+        document.getElementById("sim-aus-pressure").textContent = "TEKANAN RENDAH (MINIMUM)";
+        document.getElementById("sim-indo-weather").textContent = "🌧️ Sebagian Besar Wilayah Musim Hujan";
+
+        document.getElementById("monsoon-badge").className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-900 text-xs font-extrabold";
+        document.getElementById("monsoon-badge").textContent = "PERIODE OKTOBER – APRIL";
+        document.getElementById("monsoon-title").textContent = "Angin Muson Barat → Musim Hujan";
+        document.getElementById("monsoon-desc").innerHTML = "Pada bulan Oktober hingga April, matahari berada di belahan bumi selatan. Benua Australia mengalami musim panas (tekanan udara rendah), sedangkan Benua Asia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari Asia menuju Australia melewati samudra luas sehingga membawa banyak uap air dan menyebabkan <strong>musim hujan</strong> di sebagian besar wilayah Indonesia.";
+        document.getElementById("monsoon-impact").textContent = "Petani mulai mengolah lahan sawah tadah hujan, namun masyarakat perlu mewaspadai potensi banjir dan tanah longsor.";
       } else {
-        btnTimur.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-amber-500 text-slate-950 shadow";
+        btnTimur.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-amber-600 text-white shadow";
         btnBarat.className = "px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:bg-slate-100";
-
-        asiaSeason.textContent = "Musim Panas (Suhu Tinggi)";
-        asiaPressure.textContent = "TEKANAN RENDAH (MINIMUM)";
-        ausSeason.textContent = "Musim Dingin (Suhu Rendah)";
-        ausPressure.textContent = "TEKANAN TINGGI (MAKSIMUM)";
-        indoWeather.textContent = "☀️ Sebagian Besar Wilayah Musim Kemarau";
-
-        arrowsBarat.classList.add("hidden");
         arrowsTimur.classList.remove("hidden");
+        arrowsBarat.classList.add("hidden");
 
-        badge.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold";
-        badge.textContent = "PERIODE APRIL – OKTOBER";
-        title.textContent = "Angin Muson Timur → Musim Kemarau";
-        desc.innerHTML = "Pada bulan April hingga Oktober, matahari berada di belahan bumi utara. Benua Asia mengalami musim panas (tekanan udara rendah), sedangkan Benua Australia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari gurun luas Australia menuju Asia dengan kandungan uap air sangat sedikit sehingga menyebabkan <strong>musim kemarau</strong> di Indonesia.";
-        impact.textContent = "Nelayan lebih mudah melaut karena gelombang cenderung tenang dan petani garam meningkatkan produksi, namun wilayah rawan kekeringan perlu menghemat air.";
+        document.getElementById("sim-asia-season").textContent = "Musim Panas (Suhu Tinggi)";
+        document.getElementById("sim-asia-pressure").textContent = "TEKANAN RENDAH (MINIMUM)";
+        document.getElementById("sim-aus-season").textContent = "Musim Dingin (Suhu Rendah)";
+        document.getElementById("sim-aus-pressure").textContent = "TEKANAN TINGGI (MAKSIMUM)";
+        document.getElementById("sim-indo-weather").textContent = "☀️ Sebagian Besar Wilayah Musim Kemarau";
+
+        document.getElementById("monsoon-badge").className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold";
+        document.getElementById("monsoon-badge").textContent = "PERIODE APRIL – OKTOBER";
+        document.getElementById("monsoon-title").textContent = "Angin Muson Timur → Musim Kemarau";
+        document.getElementById("monsoon-desc").innerHTML = "Pada bulan April hingga Oktober, matahari berada di belahan bumi utara. Benua Asia mengalami musim panas (tekanan udara rendah), sedangkan Benua Australia mengalami musim dingin (tekanan udara tinggi). Angin bertiup dari gurun luas Australia yang kering menuju Asia sehingga menyebabkan <strong>musim kemarau</strong> di sebagian besar wilayah Indonesia.";
+        document.getElementById("monsoon-impact").textContent = "Nelayan lebih leluasa melaut dan petani memanen hasil pertanian, namun wilayah Nusa Tenggara perlu mengantisipasi kekeringan dan kebakaran lahan.";
       }
     }
 
     /* =========================================================================
-       9. DATA & LOGIKA KUIS EVALUASI INTERAKTIF (8 SOAL PILIHAN GANDA)
+       10. LOGIKA TAB 4: KUIS EVALUASI INTERAKTIF (10 SOAL)
        ========================================================================= */
-    const QUIZ_QUESTIONS = [
+    const QUIZ_DATA = [
       {
         id: 1,
-        topic: "Letak Astronomis",
-        question: "Berdasarkan letak astronomisnya, wilayah Indonesia berada pada koordinat 6° LU – 11° LS dan 95° BT – 141° BT. Dampak utama dari letak lintang tersebut bagi kondisi alam Indonesia adalah...",
+        topic: "Letak Astronomis & Iklim",
+        question: "Berdasarkan garis lintang 6° LU – 11° LS, sebagian besar wilayah Indonesia memiliki iklim tropis dengan ciri utama...",
         options: [
-          "Memiliki empat musim yang berganti setiap tiga bulan sekali",
-          "Beriklim tropis dengan curah hujan tinggi dan penyinaran matahari sepanjang tahun",
-          "Terbagi menjadi tiga zona waktu dengan selisih masing-masing satu jam",
-          "Sering mengalami badai salju di wilayah pegunungan Pulau Sumatra"
+          "Memiliki empat musim yang berganti setiap tiga bulan",
+          "Mendapat penyinaran matahari sepanjang tahun dan curah hujan tinggi",
+          "Suhu udara sangat dingin di bawah titik beku pada malam hari",
+          "Tidak pernah mengalami pergantian arah angin musiman"
         ],
         correctIndex: 1,
-        explanation: "Letak lintang 6° LU – 11° LS menempatkan Indonesia di kawasan ekuator/tropis, sehingga mendapatkan penyinaran matahari sepanjang tahun, suhu udara hangat yang stabil, dan curah hujan tinggi."
+        explanation: "Letak lintang Indonesia di sekitar garis Khatulistiwa (6° LU – 11° LS) membuat Indonesia beriklim tropis dengan penyinaran matahari sepanjang tahun (±12 jam/hari) dan kelembapan serta curah hujan tinggi."
       },
       {
         id: 2,
-        topic: "Pembagian Zona Waktu",
-        question: "Seorang siswa di Kota Bandung (WIB) melakukan panggilan video dengan temannya di Kota Jayapura (WIT) pada pukul 14.30 WIB. Pukul berapakah waktu yang ditunjukkan di Kota Jayapura pada saat yang sama?",
+        topic: "Letak Geografis (Posisi Silang)",
+        question: "Secara geografis, kepulauan Indonesia terletak di posisi silang dunia karena diapit oleh dua benua dan dua samudra, yaitu...",
         options: [
-          "13.30 WIT",
-          "15.30 WIT",
-          "16.30 WIT",
-          "17.30 WIT"
+          "Benua Asia & Afrika serta Samudra Hindia & Atlantik",
+          "Benua Eropa & Australia serta Samudra Pasifik & Arktik",
+          "Benua Asia & Australia serta Samudra Hindia & Samudra Pasifik",
+          "Benua Amerika & Asia serta Samudra Pasifik & Atlantik"
         ],
         correctIndex: 2,
-        explanation: "Selisih waktu antara WIB (UTC+7) dan WIT (UTC+9) adalah +2 jam karena perbedaan garis bujur sekitar 30°. Jadi, pukul 14.30 WIB sama dengan pukul 16.30 WIT."
+        explanation: "Indonesia diapit oleh Benua Asia di barat laut dan Benua Australia di tenggara, serta Samudra Hindia di barat/selatan dan Samudra Pasifik di timur laut."
       },
       {
         id: 3,
-        topic: "Letak Geografis",
-        question: "Indonesia berada pada posisi silang dunia karena diapit oleh dua benua dan dua samudra, yaitu...",
+        topic: "Letak Geologis Indonesia",
+        question: "Pertemuan tiga lempeng tektonik besar dunia (Eurasia, Indo-Australia, dan Pasifik) di wilayah Indonesia memberikan dampak positif berupa...",
         options: [
-          "Benua Asia dan Afrika, serta Samudra Hindia dan Atlantik",
-          "Benua Asia dan Australia, serta Samudra Hindia dan Pasifik",
-          "Benua Australia dan Amerika, serta Samudra Pasifik dan Arktik",
-          "Benua Eropa dan Asia, serta Samudra Hindia dan Pasifik"
+          "Wilayah Indonesia bebas sepenuhnya dari gempa bumi",
+          "Tanah vulkanik yang subur serta melimpahnya sumber daya mineral dan panas bumi",
+          "Seluruh pulau di Indonesia memiliki dataran rendah yang rata tanpa pegunungan",
+          "Tidak terbentuknya gunung api aktif di sepanjang Sumatra hingga Maluku"
         ],
         correctIndex: 1,
-        explanation: "Secara geografis, Indonesia terletak di antara Benua Asia (barat laut) dan Benua Australia (tenggara), serta di antara Samudra Hindia (barat/selatan) dan Samudra Pasifik (timur laut)."
+        explanation: "Aktivitas tektonik dan vulkanik menghasilkan tanah vulkanik (andosol) yang sangat subur untuk pertanian, cadangan energi panas bumi (geothermal), serta mineral tambang bernilai tinggi."
       },
       {
         id: 4,
-        topic: "Angin Muson",
-        question: "Pada periode Oktober hingga April, angin bertiup dari Benua Asia yang bertekanan maksimum menuju Benua Australia yang bertekanan minimum melewati samudra luas. Fenomena ini disebut...",
+        topic: "Perbandingan Peta Konvensional & Digital",
+        question: "Perbedaan utama antara peta konvensional (atlas cetak) dan peta digital (WebGIS) dalam mempelajari kondisi geografis Indonesia adalah...",
         options: [
-          "Angin Muson Timur yang menyebabkan musim kemarau panjang di Indonesia",
-          "Angin Muson Barat yang membawa banyak uap air sehingga terjadi musim hujan",
-          "Angin Fohn yang bersifat kering dan panas di lereng pegunungan",
-          "Angin Darat yang bertiup dari daratan menuju lautan pada malam hari"
+          "Peta konvensional dapat menampilkan data gempa real-time, sedangkan peta digital tidak",
+          "Peta digital memiliki skala dinamis (zoom in/out) dan sistem layer interaktif, sedangkan peta konvensional berskala statis",
+          "Peta konvensional tidak memerlukan legenda dan arah mata angin",
+          "Peta digital hanya dapat digunakan untuk wilayah daratan tanpa lautan"
         ],
         correctIndex: 1,
-        explanation: "Angin Muson Barat bertiup pada bulan Oktober–April dari Asia menuju Australia melewati Samudra Pasifik dan Laut Cina Selatan sehingga kaya uap air dan memicu musim hujan di Indonesia."
+        explanation: "Peta digital (WebGIS) memungkinkan pengguna memperbesar/memperkecil skala secara dinamis, menumpuk (overlay) berbagai layer informasi spasial, dan memperbarui data secara cepat."
       },
       {
         id: 5,
-        topic: "Letak Geologis",
-        question: "Pertemuan tiga lempeng tektonik besar (Eurasia, Indo-Australia, dan Pasifik) di Indonesia memberikan dampak positif bagi sektor agraris, yaitu...",
+        topic: "Pembagian Zona Waktu (Garis Bujur)",
+        question: "Apabila di Kota Pontianak (Kalimantan Barat, WIB) menunjukkan pukul 09.00, maka pada saat yang sama di Kota Jayapura (Papua, WIT) menunjukkan pukul...",
         options: [
-          "Terbentuknya tanah vulkanik yang subur dari material letusan gunung api",
-          "Bebasnya seluruh wilayah kepulauan dari ancaman gempa bumi tektonik",
-          "Berkurangnya jumlah gunung api aktif di sepanjang Pulau Sumatra dan Jawa",
-          "Terbentuknya gurun pasir luas di bagian tengah Pulau Kalimantan"
+          "07.00 WIT",
+          "08.00 WIT",
+          "10.00 WIT",
+          "11.00 WIT"
         ],
-        correctIndex: 0,
-        explanation: "Aktivitas vulkanisme di sepanjang jalur pertemuan lempeng menghasilkan abu vulkanik yang membentuk tanah andosol sangat subur bagi pertanian dan perkebunan."
+        correctIndex: 3,
+        explanation: "WIT (UTC+9) memiliki selisih waktu +2 jam lebih cepat dibandingkan WIB (UTC+7). Jadi, 09.00 WIB + 2 jam = 11.00 WIT."
       },
       {
         id: 6,
-        topic: "Perbandingan Peta Konvensional & Digital",
-        question: "Manakah pernyataan yang paling tepat membedakan peta digital (WebGIS) dengan peta konvensional (atlas cetak)?",
+        topic: "Angin Muson & Musim di Indonesia",
+        question: "Pada bulan Oktober hingga April, angin bertiup dari Benua Asia menuju Benua Australia melewati samudra luas. Fenomena ini disebut...",
         options: [
-          "Peta konvensional memiliki skala dinamis yang bisa diperbesar hingga tingkat jalan",
-          "Peta digital memiliki skala statis sehingga tidak dapat menampilkan detail pulau kecil",
-          "Peta digital memungkinkan pengguna mengaktifkan lapisan informasi (layer) secara selektif dan memperbesar skala secara interaktif",
-          "Peta konvensional selalu menampilkan data cuaca dan pergerakan angin secara real-time"
+          "Angin Muson Timur yang menyebabkan musim kemarau panjang",
+          "Angin Muson Barat yang membawa banyak uap air dan memicu musim hujan",
+          "Angin Fohn yang bersifat kering dan panas di lereng gunung",
+          "Angin Darat yang bertiup pada malam hari menuju laut"
         ],
-        correctIndex: 2,
-        explanation: "Keunggulan utama peta digital (WebGIS) adalah skala yang dinamis (Zoom In/Out) serta kemampuan menumpuk (overlay) dan memilih layer informasi spasial sesuai kebutuhan analisis."
+        correctIndex: 1,
+        explanation: "Angin Muson Barat (Oktober–April) bergerak dari tekanan tinggi di Asia menuju tekanan rendah di Australia melewati samudra luas sehingga kaya uap air dan mendatangkan musim hujan."
       },
       {
         id: 7,
-        topic: "Komponen Peta Konvensional",
-        question: "Saat membaca peta konvensional pada buku atlas cetak, komponen peta yang digunakan untuk menentukan orientasi arah utara, selatan, timur, dan barat adalah...",
+        topic: "Identifikasi Penanda Angka Peta (1–38): Sumatera",
+        question: "Pada peta Indonesia dengan penanda angka 1–38, provinsi paling barat Indonesia yang ditandai dengan nomor #1 dengan ibu kota Banda Aceh adalah...",
         options: [
-          "Skala batang",
-          "Mawar angin (orientasi arah mata angin)",
-          "Inset peta",
-          "Garis bujur"
+          "Sumatera Utara",
+          "Aceh",
+          "Kepulauan Riau",
+          "Bengkulu"
         ],
         correctIndex: 1,
-        explanation: "Mawar angin (tanda orientasi) berfungsi menunjukkan arah mata angin pada peta konvensional sehingga pembaca dapat mengetahui posisi relatif suatu wilayah."
+        explanation: "Penanda angka #1 adalah Provinsi Aceh (ibu kota Banda Aceh), yang terletak di ujung barat laut Pulau Sumatera."
       },
       {
         id: 8,
-        topic: "Penerapan Peta Digital dalam Mitigasi",
-        question: "Tim penanggulangan bencana ingin menganalisis secara cepat wilayah pesisir yang berdekatan dengan zona subduksi lempeng dan gunung api aktif secara bersamaan. Fitur peta digital yang paling membantu tugas tersebut adalah...",
+        topic: "Identifikasi Penanda Angka Peta (1–38): Pulau Jawa",
+        question: "Penanda angka #11 hingga #16 pada peta menunjukkan enam provinsi di Pulau Jawa. Provinsi pada penanda #15 yang memiliki ibu kota Yogyakarta adalah...",
         options: [
-          "Tumpang susun lapisan informasi (overlay layer) lempeng tektonik dan sebaran gunung api",
-          "Pencetakan ulang atlas kertas dengan skala tetap 1 : 20.000.000",
-          "Penghapusan seluruh garis lintang dan garis bujur pada tampilan layar",
-          "Penggunaan mawar angin statis tanpa koordinat geografis"
+          "Jawa Tengah",
+          "Jawa Barat",
+          "DI Yogyakarta",
+          "Banten"
         ],
-        correctIndex: 0,
-        explanation: "Fitur tumpang susun (overlay) beberapa layer spasial pada peta digital memudahkan analisis hubungan keruangan antara zona subduksi, gunung api aktif, dan permukiman pesisir secara cepat."
+        correctIndex: 2,
+        explanation: "Di Pulau Jawa, urutan penanda angkanya adalah #11 Banten, #12 DKI Jakarta, #13 Jawa Barat, #14 Jawa Tengah, #15 DI Yogyakarta, dan #16 Jawa Timur."
+      },
+      {
+        id: 9,
+        topic: "Identifikasi Penanda Angka Peta (1–38): Kalimantan",
+        question: "Pulau Kalimantan ditandai dengan penanda angka #20 hingga #24. Dua provinsi di Pulau Kalimantan yang termasuk ke dalam wilayah Waktu Indonesia Barat (WIB) adalah...",
+        options: [
+          "#23 Kalimantan Timur dan #24 Kalimantan Utara",
+          "#22 Kalimantan Selatan dan #23 Kalimantan Timur",
+          "#20 Kalimantan Barat dan #21 Kalimantan Tengah",
+          "#24 Kalimantan Utara dan #20 Kalimantan Barat"
+        ],
+        correctIndex: 2,
+        explanation: "Penanda #20 Kalimantan Barat (Pontianak) dan #21 Kalimantan Tengah (Palangka Raya) masuk dalam zona WIB, sedangkan #22 Kalimantan Selatan (Banjarbaru), #23 Kalimantan Timur (Samarinda), dan #24 Kalimantan Utara (Tanjung Selor) masuk zona WITA."
+      },
+      {
+        id: 10,
+        topic: "Identifikasi Penanda Angka Peta (1–38): Papua",
+        question: "Pada kelompok Pulau Papua (penanda #33 hingga #38), provinsi yang berpusat di Lembah Baliem (Wamena) dan menjadi satu-satunya provinsi terkurung daratan (landlocked) di Indonesia ditandai nomor...",
+        options: [
+          "#33 Papua Barat Daya",
+          "#36 Papua",
+          "#37 Papua Pegunungan",
+          "#38 Papua Selatan"
+        ],
+        correctIndex: 2,
+        explanation: "Penanda #37 adalah Provinsi Papua Pegunungan (ibu kota Jayawijaya/Wamena), yang berada di kawasan Pegunungan Jayawijaya tanpa garis pantai."
       }
     ];
 
-    let userAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
+    let userQuizAnswers = new Array(QUIZ_DATA.length).fill(null);
 
     function renderQuiz() {
       const container = document.getElementById("quiz-questions-container");
-      container.innerHTML = QUIZ_QUESTIONS.map((q, qIdx) => {
-        const answeredIdx = userAnswers[qIdx];
-        const isAnswered = answeredIdx !== null;
+      if (!container) return;
 
-        const optionsHtml = q.options.map((opt, optIdx) => {
-          const letters = ["A", "B", "C", "D"];
-          let btnStyle = "border-slate-200 bg-slate-50 hover:bg-ocean-50 hover:border-ocean-300 text-slate-800 cursor-pointer";
-          let badgeStyle = "bg-white border border-slate-300 text-slate-700";
+      container.innerHTML = QUIZ_DATA.map((item, qIdx) => {
+        const chosenIdx = userQuizAnswers[qIdx];
+        const isAnswered = chosenIdx !== null;
+        const isCorrect = chosenIdx === item.correctIndex;
+
+        const optionsHtml = item.options.map((opt, optIdx) => {
+          const letter = String.fromCharCode(65 + optIdx);
+          let btnClass = "bg-slate-50 hover:bg-ocean-50 border-slate-200 text-slate-800";
+          let badgeClass = "bg-white border-slate-300 text-slate-700";
 
           if (isAnswered) {
-            if (optIdx === q.correctIndex) {
-              btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-500 cursor-default";
-              badgeStyle = "bg-emerald-600 text-white border-emerald-600";
-            } else if (optIdx === answeredIdx && optIdx !== q.correctIndex) {
-              btnStyle = "border-rose-500 bg-rose-50 text-rose-950 font-semibold ring-1 ring-rose-500 cursor-default";
-              badgeStyle = "bg-rose-600 text-white border-rose-600";
+            if (optIdx === item.correctIndex) {
+              btnClass = "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold ring-1 ring-emerald-400";
+              badgeClass = "bg-emerald-600 border-emerald-600 text-white";
+            } else if (optIdx === chosenIdx) {
+              btnClass = "bg-rose-50 border-rose-500 text-rose-950 font-bold";
+              badgeClass = "bg-rose-600 border-rose-600 text-white";
             } else {
-              btnStyle = "border-slate-200 bg-slate-50/50 text-slate-400 cursor-default";
-              badgeStyle = "bg-slate-100 text-slate-400 border-slate-200";
+              btnClass = "bg-slate-50/60 border-slate-200 text-slate-400 opacity-75";
             }
           }
 
           return `
             <button
               type="button"
-              ${isAnswered ? "disabled" : `onclick="answerQuizQuestion(${qIdx}, ${optIdx})"`}
-              class="w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-start gap-3 ${btnStyle}"
+              onclick="selectQuizOption(${qIdx}, ${optIdx})"
+              class="w-full text-left p-3.5 rounded-xl border-2 transition flex items-start gap-3 ${btnClass}"
             >
-              <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-extrabold flex-shrink-0 ${badgeStyle}">
-                ${letters[optIdx]}
+              <span class="w-7 h-7 rounded-lg border font-mono text-xs font-extrabold flex items-center justify-center flex-shrink-0 ${badgeClass}">
+                ${letter}
               </span>
-              <span class="text-sm leading-snug pt-0.5">${opt}</span>
+              <span class="text-xs sm:text-sm leading-relaxed pt-0.5">${opt}</span>
             </button>
           `;
         }).join("");
 
-        let feedbackHtml = "";
-        if (isAnswered) {
-          const isCorrect = answeredIdx === q.correctIndex;
-          feedbackHtml = `
-            <div class="mt-4 p-4 rounded-xl border ${isCorrect ? "bg-emerald-50/90 border-emerald-300 text-emerald-950" : "bg-rose-50/90 border-rose-300 text-rose-950"}">
-              <div class="font-extrabold text-sm flex items-center gap-2 mb-1">
-                <span>${isCorrect ? "✅ Jawaban Anda Tepat!" : "❌ Jawaban Kurang Tepat"}</span>
+        const feedbackHtml = isAnswered
+          ? `
+            <div class="mt-4 p-4 rounded-xl border ${
+              isCorrect
+                ? "bg-emerald-50/90 border-emerald-300 text-emerald-950"
+                : "bg-rose-50/90 border-rose-300 text-rose-950"
+            }">
+              <div class="font-extrabold text-xs sm:text-sm mb-1">
+                ${isCorrect ? "✓ Jawaban Anda Tepat!" : `✕ Kurang Tepat — Jawaban Benar: ${String.fromCharCode(65 + item.correctIndex)}`}
               </div>
-              <p class="text-xs sm:text-sm leading-relaxed opacity-95">
-                <strong>Pembahasan:</strong> ${q.explanation}
-              </p>
+              <p class="text-xs leading-relaxed opacity-90">${item.explanation}</p>
             </div>
-          `;
-        }
+          `
+          : "";
 
         return `
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+          <div class="bg-white rounded-2xl shadow-xs border border-slate-200 p-5 sm:p-6">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-              <span class="px-2.5 py-0.5 rounded-md bg-ocean-100 text-ocean-900 text-xs font-extrabold">
-                Soal ${q.id} • ${q.topic}
+              <span class="px-2.5 py-1 rounded-lg bg-ocean-100 text-ocean-900 font-mono text-xs font-extrabold">
+                SOAL ${item.id} / ${QUIZ_DATA.length}
               </span>
-              ${isAnswered ? `<span class="text-xs font-bold ${answeredIdx === q.correctIndex ? "text-emerald-700" : "text-rose-700"}">${answeredIdx === q.correctIndex ? "+12.5 Poin" : "0 Poin"}</span>` : ""}
+              <span class="text-xs font-bold text-archipelago-700">${item.topic}</span>
             </div>
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug mb-4">
-              ${q.question}
+            <h3 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug mb-4">
+              ${item.question}
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               ${optionsHtml}
             </div>
             ${feedbackHtml}
@@ -1968,77 +2683,78 @@
         `;
       }).join("");
 
-      updateQuizStatus();
+      updateQuizProgressAndResult();
     }
 
-    function answerQuizQuestion(qIdx, optIdx) {
-      if (userAnswers[qIdx] !== null) return;
-      userAnswers[qIdx] = optIdx;
+    function selectQuizOption(qIdx, optIdx) {
+      userQuizAnswers[qIdx] = optIdx;
       renderQuiz();
-
-      // Jika seluruh 8 soal telah dijawab, gulir otomatis ke panel skor akhir
-      const answeredCount = userAnswers.filter(ans => ans !== null).length;
-      if (answeredCount === QUIZ_QUESTIONS.length) {
-        const resultPanel = document.getElementById("quiz-result-panel");
-        setTimeout(() => {
-          resultPanel.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 350);
-      }
     }
 
-    function updateQuizStatus() {
-      const answeredCount = userAnswers.filter(ans => ans !== null).length;
-      document.getElementById("quiz-progress-text").textContent = `${answeredCount} / ${QUIZ_QUESTIONS.length} Soal`;
+    function updateQuizProgressAndResult() {
+      const answeredCount = userQuizAnswers.filter(v => v !== null).length;
+      const correctCount = userQuizAnswers.reduce((acc, ans, idx) => {
+        return acc + (ans === QUIZ_DATA[idx].correctIndex ? 1 : 0);
+      }, 0);
+
+      document.getElementById("quiz-progress-text").textContent = `${answeredCount} / ${QUIZ_DATA.length} Soal`;
 
       const resultPanel = document.getElementById("quiz-result-panel");
-      if (answeredCount === QUIZ_QUESTIONS.length) {
-        let correctCount = 0;
-        QUIZ_QUESTIONS.forEach((q, idx) => {
-          if (userAnswers[idx] === q.correctIndex) correctCount++;
-        });
-
-        const score = Math.round((correctCount / QUIZ_QUESTIONS.length) * 100);
+      if (answeredCount === QUIZ_DATA.length) {
+        const score = Math.round((correctCount / QUIZ_DATA.length) * 100);
+        resultPanel.classList.remove("hidden");
         document.getElementById("result-score-value").textContent = score;
-        document.getElementById("result-correct-count").textContent = `${correctCount} dari ${QUIZ_QUESTIONS.length} soal benar`;
+        document.getElementById("result-correct-count").textContent = `${correctCount} dari ${QUIZ_DATA.length} soal benar`;
 
-        let predicate = "";
-        let summary = "";
-        if (score >= 85) {
-          predicate = "Sangat Kompeten (Tujuan Pembelajaran Tercapai Optimal)";
-          summary = "Selamat! Anda telah menguasai analisis letak astronomis, geografis, geologis Indonesia, dinamika zona waktu serta angin muson, dan mampu membandingkan pemanfaatan peta konvensional maupun peta digital dengan sangat baik.";
+        let predicate = "Perlu Pendalaman Materi";
+        let summary = "Silakan tinjau kembali Peta Ganda pada Tab 1 dan daftar 38 provinsi pada Tab 2 untuk memperkuat pemahaman letak astronomis, geografis, dan geologis Indonesia.";
+
+        if (score >= 90) {
+          predicate = "Luar Biasa! Sangat Kompeten";
+          summary = "Anda telah menguasai analisis letak dan kondisi geografis Indonesia serta persebaran 38 provinsi menggunakan peta konvensional maupun peta digital dengan sangat baik.";
         } else if (score >= 70) {
-          predicate = "Kompeten (Tujuan Pembelajaran Tercapai)";
-          summary = "Bagus! Anda sudah memahami sebagian besar konsep letak dan kondisi geografis Indonesia serta perbedaan peta konvensional dan digital. Tinjau kembali pembahasan pada soal yang keliru untuk menyempurnakan pemahaman Anda.";
-        } else {
-          predicate = "Perlu Penguatan Materi";
-          summary = "Anda telah menyelesaikan evaluasi. Disarankan untuk kembali mengeksplorasi Tab 1 (Peta Interaktif) dan Tab 2 (Simulasi Zona Waktu & Angin Muson), lalu mengulangi kuis ini untuk mencapai ketuntasan belajar.";
+          predicate = "Baik! Tujuan Pembelajaran Tercapai";
+          summary = "Pemahaman Anda mengenai letak geografis, zona waktu, angin muson, dan persebaran provinsi Indonesia sudah baik. Tinjau kembali pembahasan pada soal yang belum tepat.";
         }
 
         document.getElementById("result-predicate").textContent = predicate;
         document.getElementById("result-summary").textContent = summary;
-        resultPanel.classList.remove("hidden");
       } else {
         resultPanel.classList.add("hidden");
       }
     }
 
     function resetQuiz() {
-      userAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
+      userQuizAnswers = new Array(QUIZ_DATA.length).fill(null);
       renderQuiz();
-      document.getElementById("tab-content-3").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     /* =========================================================================
-       10. INISIALISASI SAAT HALAMAN SELESAI DIMUAT
+       11. INISIALISASI APLIKASI SAAT HALAMAN DIMUAT
        ========================================================================= */
-    window.addEventListener("DOMContentLoaded", () => {
+    function initApp() {
       setMapMode("konvensional");
-      selectIsland("sumatra");
+      selectIsland("sumatra", 0);
       initSvgPointerInteractions();
-      updateTimeZoneSimulator(480); // Default 08:00 WIB
+      renderProvinceExplorer();
+      updateTimeZoneSimulator(480);
       setMonsoonMode("barat");
       renderQuiz();
-    });
+
+      document.addEventListener("click", (e) => {
+        const searchInput = document.getElementById("map-search-input");
+        const searchResults = document.getElementById("map-search-results");
+        if (searchInput && searchResults && !searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.classList.add("hidden");
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initApp);
+    } else {
+      initApp();
+    }
   </script>
 </body>
 </html>
